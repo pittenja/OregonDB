@@ -7,9 +7,140 @@
 </head>
 
 <body>
+  <!--Page Header with links to other pages-->
+  <h1>The Bike Shop</h1>
+  <a href="index.html">Home</a>
+  <a href="bikes.html">Bike Models</a>
+
+
+  <h2>Parts Inventory</h2>
+  <!-- New Entry !-->
+  <h3>Insert a New Part</h3>
+<form id="part-insert-form">
+  <fieldset>
+  <legend>New Part Submit Form</legend>
+  <label for="name">Name:</label>
+  <input type="text" name="part-name" id="part-name">
+  <div>
+    <p>Select which bike models the part is compatible with:</p>
+  </div>
+  <div>
+    <!--Temporary text to explain dynamic functionality-->
+    <p><mark>NOTE: the below bike models will populate dynamically from bikeModels entity</mark></p>
+  </div>
+
+  <!--The below content will be created dynamically from DB BikeModels entity-->
+  <div>
+    <label for="lbs">Specialized P1:</label>
+    <input type="checkbox" name="compat-" id="compat-" value="false">
+  </div>
   
+  <div>
+    <label for="lbs">Trek Ticket:</label>
+    <input type="checkbox" name="compat-" id="compat-" value="false">
+  </div>
+  <div>
+    <label for="lbs">Transition PBJ:</label>
+    <input type="checkbox" name="compat-" id="compat-" value="false">
+  </div>
+
+  <!--Submit Part Insert-->
+  <div>
+    <input type="submit" id="entry-submit">
+  </div>
+  
+  </fieldset>
+</form>
+
+<!-- Parts Inventory Table !-->
+<h3>Parts Inventory Table</h3>
+<h4>Click update on part to view compatible bike models</h4>
+<table id="parts-table">
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Update
+      </th>
+      <th>
+        Delete
+      </th>
+  </tr>
+  </thead>
 
 
-    
+  <!-- The below table content will populate dynamically from DB Parts entity-->
+  <tbody id="table-body">
+    <tr>
+      <td>
+        23T Sprocket
+      </th>
+      <td>
+        <input type="submit" id="update-select" value="Update">
+      </th>
+      <td>
+        <input type="submit" id="delete-select" value="Delete">
+      </td>
+  </tr>
+  <tr>
+    <td>
+      Medium Chain
+    </th>
+    <td>
+      <input type="submit" id="update-select" value="Update">
+    </th>
+    <td>
+      <input type="submit" id="delete-select" value="Delete">
+    </td>
+</tr>
+<tr>
+  <td>
+    XL Grips
+  </th>
+  <td>
+    <input type="submit" id="update-select" value="Update">
+  </th>
+  <td>
+    <input type="submit" id="delete-select" value="Delete">
+  </td>
+</tr>
+  </tbody>
+</table>
+
+<!--Temporary text to explain dynamic functionality-->
+<div>
+  <mark>The below form will only appear when an above parts list table item is selected to update - will auto populate name from parts list as well as bike compatibility</mark>
+</div>
+
+
+<!--Update Form - this will appear when a part is selected to update !-->
+<form id="update-form" >
+  <fieldset>
+  <legend>Update Part Name or Compatibility</legend>
+  <label for="update-name">Name:</label>
+  <input type="text" name="update-name" id="update-name" value="part name">
+
+
+  <!--The below content will be created dynamically from DB BikeModels entity-->
+  <div>
+    <label for="lbs">Specialized P1:</label>
+    <input type="checkbox" name="compat-" id="compat-" value="false">
+  </div>
+  
+  <div>
+    <label for="lbs">Trek Ticket:</label>
+    <input type="checkbox" name="compat-" id="compat-" value="true" checked>
+  </div>
+  <div>
+    <label for="lbs">Transition PBJ:</label>
+    <input type="checkbox" name="compat-" id="compat-" value="true" checked>
+  </div>
+
+
+  <input type="submit" id="update-submit" value="Save">
+  </fieldset>
+</form> 
 </body>
 </html>
