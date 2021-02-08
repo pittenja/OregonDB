@@ -24,7 +24,7 @@
 --select parts table for viewing
 
 --delete part
-----delete respective rows in bikePartCompatibility
+----delete respective rows in bikePartCompatibility -- this can be handled by ON DELETE CASCADE in compatibility table?
 
 --insert part
 ----make select to bikeModels table to populate insert form with all serviceable bikes
