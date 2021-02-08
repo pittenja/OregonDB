@@ -1,23 +1,5 @@
 --SQL FILE FOR DATABASE CREATION AND INSERTION OF SAMPLE DATA
 
---Customers Entity - RYAN
---Table creation:
-
---Sample data:
-
-
---RepairJobs Entity - RYAN
---Table creation:
-
---Sample data:
-
-
---Employees Entity - RYAN
---Table creation:
-
---Sample data:
-
-
 --BikeModels Entity - JAY
 --Table creation:
 
@@ -34,3 +16,22 @@
 --Table creation:
 
 --Sample data:
+
+
+--Customers Entity - RYAN
+--Table creation:
+
+--Sample data:
+
+
+--Employees Entity - RYAN
+--Table creation:
+
+--Sample data:
+
+
+--RepairJobs Entity - RYAN
+--Table creation:
+
+--Sample data:
+
