@@ -13,6 +13,7 @@
 --select bikeModels table for viewing
 
 --view compatible parts for a bike model
+----may need to use join to obtain all compatible parts
 ----select to bikePartCompatibility to get ids of all compatible parts
 ----select queries for each compatible part to get name of part for Bike model part compatbility detail
 
@@ -31,9 +32,11 @@
 ----upon submit, perform insert into parts table as well as bikePartCompatibility table
 
 --update part
+----may need to use join to obtain all compatible bikes
 ----make select to bikeModels table to populate update form with all serviceable bikes
 ----make select query to bikePartCompatibility table to get bike_ids of currently compatible bikes to part so that 
 ----form check boxes can be preselected for compatible bikes
 ----upon submit, perform update into parts table 
 ------perform delete to all rows in bikePartCompatibility that contain the part_id to reset table
 ------perform insert of rows into bikePartCompatibility for the updated list of compatible bikes for that part
+------build insert query in loop to insert all rows
