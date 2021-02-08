@@ -24,6 +24,7 @@
 --select parts table for viewing
 
 --delete part
+----delete respective rows in bikePartCompatibility
 
 --insert part
 ----make select to bikeModels table to populate insert form with all serviceable bikes
