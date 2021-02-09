@@ -10,7 +10,8 @@
 
 
 --BIKES HTML PAGE - JAY--
---select bikeModels table for viewing
+--select bikeModels table for viewing in order to populate table on page
+SELECT * FROM `BikeModels`;
 
 --view compatible parts for a bike model
 ----may need to use join to obtain all compatible parts
@@ -18,14 +19,31 @@
 ----select queries for each compatible part to get name of part for Bike model part compatbility detail
 
 --insert new bike model
-----make select to parts table to populate insert form with all available parts
+----make select to parts table to populate insert form with all available parts - partId will be the html id for the part checkbox
+SELECT * FROM `Parts`;
 ----upon submit, perform insert into bikeModels table as well as bikePartCompatibility table
+----colon : character being used to denote variable that will have data from backend code
+INSERT INTO BikeModels
+SET
+make = :make,
+model = :model,
+year = :year;
+---For each selected compatible part in insert form, insert compatibility relationship into into bikePartCompatibility table using the below queries
+INSERT INTO BikePartCompatibility
+SET
+bikeId = 
+(SELECT bikeId from BikeModels
+WHERE make = :make AND model = :model AND year = :year),
+partId = :partId;
 
 --PARTS HTML PAGE - JAY--
---select parts table for viewing
+--select parts table for viewing in order to populate table on page
+SELECT * FROM `Parts`;
 
---delete part
-----delete respective rows in bikePartCompatibility -- this can be handled by ON DELETE CASCADE in compatibility table?
+--delete part with colon : character being used to denote variable that will have data from backend code
+DELETE
+FROM Parts
+WHERE partId = :partId;
 
 --insert part
 ----make select to bikeModels table to populate insert form with all serviceable bikes

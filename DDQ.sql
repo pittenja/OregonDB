@@ -56,7 +56,7 @@ CREATE TABLE `BikePartCompatibility` (
 `partId` int(11),
 PRIMARY KEY (`compatibilityId`),
 CONSTRAINT `BikePartCompatibility_ibfk_1` FOREIGN KEY (`bikeId`) REFERENCES `BikeModels` (`bikeId`),
-CONSTRAINT `BikePartCompatibility_ibfk_2` FOREIGN KEY (`partId`) REFERENCES `Parts` (`partId`)
+CONSTRAINT `BikePartCompatibility_ibfk_2` FOREIGN KEY (`partId`) REFERENCES `Parts` (`partId`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 --Sample data:
