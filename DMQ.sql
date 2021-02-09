@@ -14,9 +14,15 @@
 SELECT * FROM `BikeModels`;
 
 --view compatible parts for a bike model
-----may need to use join to obtain all compatible parts
-----select to bikePartCompatibility to get ids of all compatible parts
-----select queries for each compatible part to get name of part for Bike model part compatbility detail
+--colon : character being used to denote variable that will have data from backend code
+----First obtain details for bike selected
+SELECT * FROM `BikeModels`
+WHERE bikeId = :bikeId;
+----Then perform the following select query to create list of parts that are compatible with the selected bike
+SELECT partName FROM Parts
+WHERE partId IN
+	(SELECT partId FROM BikePartCompatibility
+    WHERE bikeId = :bikeId);
 
 --insert new bike model
 ----make select to parts table to populate insert form with all available parts - partId will be the html id for the part checkbox
@@ -46,8 +52,20 @@ FROM Parts
 WHERE partId = :partId;
 
 --insert part
-----make select to bikeModels table to populate insert form with all serviceable bikes
+----make select to bikeModels table to populate insert form with all serviceable bikes - bikeId will be the html id for the bike checkbox
+SELECT * FROM `BikeModels`;
 ----upon submit, perform insert into parts table as well as bikePartCompatibility table
+----colon : character being used to denote variable that will have data from backend code
+INSERT INTO Parts
+SET
+partName = :partName;
+---For each selected compatible bike in insert form, insert compatibility relationship into into bikePartCompatibility table using the below queries
+INSERT INTO BikePartCompatibility
+SET
+bikeId = :bikeId,
+partId = 
+(SELECT partId from Parts
+WHERE partName = :partName);
 
 --update part
 ----may need to use join to obtain all compatible bikes
