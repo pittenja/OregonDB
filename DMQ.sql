@@ -10,10 +10,10 @@
 
 
 --BIKES HTML PAGE - JAY--
---select bikeModels table for viewing in order to populate table on page
+--SELECT bikeModels table for viewing in order to populate table on page
 SELECT * FROM `BikeModels`;
 
---view compatible parts for a bike model
+--SELECT compatible parts for a bike model for viewing on page
 --colon : character being used to denote variable that will have data from backend code
 ----First obtain details for bike selected
 SELECT * FROM `BikeModels`
@@ -24,7 +24,7 @@ WHERE partId IN
 	(SELECT partId FROM BikePartCompatibility
     WHERE bikeId = :bikeId);
 
---insert new bike model
+--INSERT new bike model
 ----make select to parts table to populate insert form with all available parts - partId will be the html id for the part checkbox
 SELECT * FROM `Parts`;
 ----upon submit, perform insert into bikeModels table as well as bikePartCompatibility table
@@ -42,16 +42,17 @@ bikeId =
 WHERE make = :make AND model = :model AND year = :year),
 partId = :partId;
 
+
 --PARTS HTML PAGE - JAY--
---select parts table for viewing in order to populate table on page
+--SELECT parts table for viewing in order to populate table on page
 SELECT * FROM `Parts`;
 
---delete part with colon : character being used to denote variable that will have data from backend code
+--DELETE part with colon : character being used to denote variable that will have data from backend code
 DELETE
 FROM Parts
 WHERE partId = :partId;
 
---insert part
+--INSERT part
 ----make select to bikeModels table to populate insert form with all serviceable bikes - bikeId will be the html id for the bike checkbox
 SELECT * FROM `BikeModels`;
 ----upon submit, perform insert into parts table as well as bikePartCompatibility table
@@ -67,12 +68,32 @@ partId =
 (SELECT partId from Parts
 WHERE partName = :partName);
 
---update part
-----may need to use join to obtain all compatible bikes
-----make select to bikeModels table to populate update form with all serviceable bikes
-----make select query to bikePartCompatibility table to get bike_ids of currently compatible bikes to part so that 
-----form check boxes can be preselected for compatible bikes
+--UPDATE part
+----First obtain details for part selected on page
+----colon : character being used to denote variable that will have data from backend code
+SELECT * FROM `Parts`
+WHERE partId = :partId;
+----Obtain list of all serviceable bikes in order to populate update form with checkboxes
+SELECT * FROM `BikeModels`
+----Pre-check checkboxes of all bike models that are currently set to be compatible with the part being updated - save bikeId in html id for each checkbox
+----Then perform the following select query to create list of bikes that are compatible with the selected part
+SELECT * FROM BikeModels
+WHERE bikeId IN
+	(SELECT bikeId FROM BikePartCompatibility
+    WHERE partId = :partId);
 ----upon submit, perform update into parts table 
+UPDATE Parts
+SET
+partName = :partName;
+WHERE partId = :partId;
 ------perform delete to all rows in bikePartCompatibility that contain the part_id to reset table
-------perform insert of rows into bikePartCompatibility for the updated list of compatible bikes for that part
-------build insert query in loop to insert all rows
+DELETE
+FROM BikePartCompatibility
+WHERE partId = :partId;
+---For each selected compatible bike in update form, insert compatibility relationship into into bikePartCompatibility table using the below queries
+INSERT INTO BikePartCompatibility
+SET
+bikeId = :bikeId,
+partId = 
+(SELECT partId from Parts
+WHERE partName = :partName);
