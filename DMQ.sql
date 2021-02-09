@@ -35,6 +35,7 @@ make = :make,
 model = :model,
 year = :year;
 ---For each selected compatible part in insert form, insert compatibility relationship into into bikePartCompatibility table using the below queries
+---backend code will build a large query that contains the below query FOR EACH checked box of compatible part
 INSERT INTO BikePartCompatibility
 SET
 bikeId = 
@@ -61,6 +62,7 @@ INSERT INTO Parts
 SET
 partName = :partName;
 ---For each selected compatible bike in insert form, insert compatibility relationship into into bikePartCompatibility table using the below queries
+---backend code will build a large query that contains the below query FOR EACH checked box of compatible bike
 INSERT INTO BikePartCompatibility
 SET
 bikeId = :bikeId,
@@ -91,6 +93,7 @@ DELETE
 FROM BikePartCompatibility
 WHERE partId = :partId;
 ---For each selected compatible bike in update form, insert compatibility relationship into into bikePartCompatibility table using the below queries
+---backend code will build a large query that contains the below query FOR EACH checked box of compatible bike
 INSERT INTO BikePartCompatibility
 SET
 bikeId = :bikeId,
