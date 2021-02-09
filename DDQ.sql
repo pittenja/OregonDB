@@ -2,8 +2,30 @@
 
 --BikeModels Entity - JAY
 --Table creation:
+CREATE TABLE `BikeModels` (
+`bikeId` int(11) NOT NULL AUTO_INCREMENT,
+`make` varchar(255) NOT NULL,
+`model` varchar(255) NOT NULL,
+`year` int(11) NOT NULL,
+PRIMARY KEY (`bikeId`)
+) ENGINE=InnoDB;
 
 --Sample data:
+INSERT INTO BikeModels
+SET
+make = 'Trek',
+model = 'Ticket',
+year = '2012';
+INSERT INTO BikeModels
+SET
+make = 'Specialized',
+model = 'P1',
+year = '2010';
+INSERT INTO BikeModels
+SET
+make = 'Transition',
+model = 'PBJ',
+year = '2016';
 
 
 --Parts Entity - JAY
@@ -24,6 +46,7 @@ partName = 'Medium Chain';
 INSERT INTO Parts
 SET
 partName = 'XL Grips';
+
 
 --BikePartCompatibility Entity - JAY
 --Table creation:
