@@ -8,9 +8,22 @@
 
 --Parts Entity - JAY
 --Table creation:
+CREATE TABLE `Parts` (
+`partId` int(11) NOT NULL AUTO_INCREMENT,
+`partName` varchar(255) NOT NULL,
+PRIMARY KEY (`partId`)
+) ENGINE=InnoDB;
 
 --Sample data:
-
+INSERT INTO Parts
+SET
+partName = '23T Sprocket';
+INSERT INTO Parts
+SET
+partName = 'Medium Chain';
+INSERT INTO Parts
+SET
+partName = 'XL Grips';
 
 --BikePartCompatibility Entity - JAY
 --Table creation:
