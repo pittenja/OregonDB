@@ -119,6 +119,12 @@ lastName = 'Brown';
 
 --Employees Entity - RYAN
 --Table creation:
+CREATE TABLE `Employees` (
+`employeeId` int(11) NOT NULL AUTO_INCREMENT,
+`employeeFirstName` varchar(255) NOT NULL,
+`employeeLastName` varchar(255) NOT NULL,
+PRIMARY KEY (`employeeId`)
+) ENGINE=InnoDB;
 
 --Sample data:
 
