@@ -104,7 +104,18 @@ PRIMARY KEY (`customerId`)
 ) ENGINE=InnoDB;
 
 --Sample data:
-
+INSERT INTO Customers
+SET
+firstName = 'Bob',
+lastName = 'Jones';
+INSERT INTO Customers
+SET
+firstName = 'Sean',
+lastName = 'Kent';
+INSERT INTO Customers
+SET
+firstName = 'Chris',
+lastName = 'Brown';
 
 --Employees Entity - RYAN
 --Table creation:
