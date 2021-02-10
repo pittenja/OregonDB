@@ -154,4 +154,30 @@ CONSTRAINT `RepairJobs_ibfk_2` FOREIGN KEY (`employeeId`) REFERENCES `Employees`
 ) ENGINE=InnoDB;
 
 --Sample data:
-
+INSERT INTO RepairJobs
+SET
+repairType = 'Sprocket',
+bikeId = 
+(SELECT bikeId FROM BikeModels 
+WHERE make = 'Trek' AND model = 'Ticket' AND year = '2012'),
+employeeId = 
+(SELECT employeeId FROM Employees
+WHERE employeeFirstName = 'Jill' AND employeeLastName = 'Johnson');
+INSERT INTO RepairJobs
+SET
+repairType = 'Chain',
+bikeId = 
+(SELECT bikeId FROM BikeModels 
+WHERE make = 'Specialized' AND model = 'P1' AND year = '2010'),
+employeeId = 
+(SELECT employeeId FROM Employees
+WHERE employeeFirstName = 'Jean' AND employeeLastName = 'Wallace');
+INSERT INTO RepairJobs
+SET
+repairType = 'Handle Bars',
+bikeId = 
+(SELECT bikeId FROM BikeModels 
+WHERE make = 'Transition' AND model = 'PBJ' AND year = '2016'),
+employeeId = 
+(SELECT employeeId FROM Employees
+WHERE employeeFirstName = 'Nathan' AND employeeLastName = 'Norwood');
