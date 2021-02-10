@@ -93,7 +93,7 @@ DELETE
 FROM BikePartCompatibility
 WHERE partId = :partId;
 ---For each selected compatible bike in update form, insert compatibility relationship into into bikePartCompatibility table using the below queries
----backend code will build a large query that contains the below query FOR EACH checked box of compatible bike
+---backend code will build a large query that contains the below query FOR EACH checked box of compatible bikes
 INSERT INTO BikePartCompatibility
 SET
 bikeId = :bikeId,
