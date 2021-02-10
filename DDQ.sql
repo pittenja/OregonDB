@@ -127,6 +127,18 @@ PRIMARY KEY (`employeeId`)
 ) ENGINE=InnoDB;
 
 --Sample data:
+INSERT INTO Employees
+SET
+employeeFirstName = 'Jill',
+employeeLastName = 'Johnson';
+INSERT INTO Employees
+SET
+employeeFirstName = 'Jean',
+employeeLastName = 'Wallace';
+INSERT INTO Employees
+SET
+employeeFirstName = 'Nathan',
+employeeLastName = 'Norwood';
 
 
 --RepairJobs Entity - RYAN
