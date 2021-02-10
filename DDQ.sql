@@ -143,6 +143,15 @@ employeeLastName = 'Norwood';
 
 --RepairJobs Entity - RYAN
 --Table creation:
+CREATE TABLE `RepairJobs` (
+`repairId` int(11) NOT NULL AUTO_INCREMENT,
+`repairType` varchar(255) NOT NULL,
+`bikeId` int(11),
+`employeeId` int(11),
+PRIMARY KEY (`repairId`),
+CONSTRAINT `RepairJobs_ibfk_1` FOREIGN KEY (`bikeId`) REFERENCES `BikeModels` (`bikeId`),
+CONSTRAINT `RepairJobs_ibfk_2` FOREIGN KEY (`employeeId`) REFERENCES `Employees` (`employeeId`)
+) ENGINE=InnoDB;
 
 --Sample data:
 
