@@ -15,7 +15,25 @@ SELECT * FROM Customers;
 
 
 --REPAIRS HTML PAGE - RYAN--
+-- Insert into RepairJobs table
+----colon : character being used to denote variable that will have data from backend code
+INSERT INTO RepairJobs
+SET
+repairType = :repairType,
+doneDateDesired = :doneDateDesired,
+customerId = 
+(SELECT customerId FROM Customers
+WHERE firstName = :firstName AND lastName = :lastName AND email = :email),
+bikeId = 
+(SELECT bikeId from BikeModels
+WHERE make = :make AND model = :model AND year = :year),
+employeeId = 
+(SELECT employeeId FROM Employees
+WHERE employeeFirstName = :employeeFirstName AND employeeLastName = :employeeLastName);
 
+-- View RepairJobs by repairType
+-- Plaeholder value will be retreived from search bar
+SELECT * FROM RepairJobs WHERE repairType LIKE 'Placeholder%';
 
 --EMPLOYEES HTML PAGE - RYAN--
 -- Insert into Customers table 
