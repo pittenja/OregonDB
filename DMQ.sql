@@ -2,11 +2,31 @@
 
 --CUSTOMERS HTML PAGE - RYAN--
 
+-- Insert into Customers table 
+----colon : character being used to denote variable that will have data from backend code
+INSERT INTO Customers
+SET
+firstName = :firstName,
+lastName = :lastName,
+email = :email;
+
+-- View all customers
+SELECT * FROM Customers;
+
 
 --REPAIRS HTML PAGE - RYAN--
 
 
 --EMPLOYEES HTML PAGE - RYAN--
+-- Insert into Customers table 
+----colon : character being used to denote variable that will have data from backend code
+INSERT INTO Employees
+SET
+employeeFirstName = :employeeFirstName,
+employeeLastName = :employeeLastName;
+
+-- View all employees
+SELECT * FROM Employees;
 
 
 --BIKES HTML PAGE - JAY--
