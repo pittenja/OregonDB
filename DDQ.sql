@@ -100,6 +100,7 @@ CREATE TABLE `Customers` (
 `customerId` int(11) NOT NULL AUTO_INCREMENT,
 `firstName` varchar(255) NOT NULL,
 `lastName` varchar(255) NOT NULL,
+`email` varchar(255) NOT NULL,
 PRIMARY KEY (`customerId`)
 ) ENGINE=InnoDB;
 
@@ -107,15 +108,18 @@ PRIMARY KEY (`customerId`)
 INSERT INTO Customers
 SET
 firstName = 'Bob',
-lastName = 'Jones';
+lastName = 'Jones',
+email = 'bjones@gmail.com';
 INSERT INTO Customers
 SET
 firstName = 'Sean',
-lastName = 'Kent';
+lastName = 'Kent',
+email = 'skent@gmail.com';
 INSERT INTO Customers
 SET
 firstName = 'Chris',
-lastName = 'Brown';
+lastName = 'Brown',
+email = 'cbrown@gmail.com';
 
 --Employees Entity - RYAN
 --Table creation:
@@ -146,17 +150,22 @@ employeeLastName = 'Norwood';
 CREATE TABLE `RepairJobs` (
 `repairId` int(11) NOT NULL AUTO_INCREMENT,
 `repairType` varchar(255) NOT NULL,
+`customerId` int(11),
 `bikeId` int(11),
 `employeeId` int(11),
 PRIMARY KEY (`repairId`),
-CONSTRAINT `RepairJobs_ibfk_1` FOREIGN KEY (`bikeId`) REFERENCES `BikeModels` (`bikeId`),
-CONSTRAINT `RepairJobs_ibfk_2` FOREIGN KEY (`employeeId`) REFERENCES `Employees` (`employeeId`)
+CONSTRAINT `RepairJobs_ibfk_1` FOREIGN KEY (`customerId`) REFERENCES `Customers` (`CustomerId`),
+CONSTRAINT `RepairJobs_ibfk_2` FOREIGN KEY (`bikeId`) REFERENCES `BikeModels` (`bikeId`),
+CONSTRAINT `RepairJobs_ibfk_3` FOREIGN KEY (`employeeId`) REFERENCES `Employees` (`employeeId`)
 ) ENGINE=InnoDB;
 
 --Sample data:
 INSERT INTO RepairJobs
 SET
 repairType = 'Sprocket',
+customerId = 
+(SELECT customerId FROM Customers
+WHERE firstName = 'Bob' AND lastName = 'Jones' AND email = 'bjones@gmail.com'),
 bikeId = 
 (SELECT bikeId FROM BikeModels 
 WHERE make = 'Trek' AND model = 'Ticket' AND year = '2012'),
@@ -166,6 +175,9 @@ WHERE employeeFirstName = 'Jill' AND employeeLastName = 'Johnson');
 INSERT INTO RepairJobs
 SET
 repairType = 'Chain',
+customerId = 
+(SELECT customerId FROM Customers
+WHERE firstName = 'Sean' AND lastName = 'Kent' AND email = 'skent@gmail.com'),
 bikeId = 
 (SELECT bikeId FROM BikeModels 
 WHERE make = 'Specialized' AND model = 'P1' AND year = '2010'),
@@ -175,6 +187,9 @@ WHERE employeeFirstName = 'Jean' AND employeeLastName = 'Wallace');
 INSERT INTO RepairJobs
 SET
 repairType = 'Handle Bars',
+customerId = 
+(SELECT customerId FROM Customers
+WHERE firstName = 'Chris' AND lastName = 'Brown' AND email = 'cbrown@gmail.com'),
 bikeId = 
 (SELECT bikeId FROM BikeModels 
 WHERE make = 'Transition' AND model = 'PBJ' AND year = '2016'),
