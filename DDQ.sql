@@ -150,6 +150,7 @@ employeeLastName = 'Norwood';
 CREATE TABLE `RepairJobs` (
 `repairId` int(11) NOT NULL AUTO_INCREMENT,
 `repairType` varchar(255) NOT NULL,
+`doneDateDesired` DATE NOT NULL,
 `customerId` int(11),
 `bikeId` int(11),
 `employeeId` int(11),
@@ -163,6 +164,7 @@ CONSTRAINT `RepairJobs_ibfk_3` FOREIGN KEY (`employeeId`) REFERENCES `Employees`
 INSERT INTO RepairJobs
 SET
 repairType = 'Sprocket',
+doneDateDesired = '2019-12-12',
 customerId = 
 (SELECT customerId FROM Customers
 WHERE firstName = 'Bob' AND lastName = 'Jones' AND email = 'bjones@gmail.com'),
@@ -175,6 +177,7 @@ WHERE employeeFirstName = 'Jill' AND employeeLastName = 'Johnson');
 INSERT INTO RepairJobs
 SET
 repairType = 'Chain',
+doneDateDesired = '2019-12-15',
 customerId = 
 (SELECT customerId FROM Customers
 WHERE firstName = 'Sean' AND lastName = 'Kent' AND email = 'skent@gmail.com'),
@@ -187,6 +190,7 @@ WHERE employeeFirstName = 'Jean' AND employeeLastName = 'Wallace');
 INSERT INTO RepairJobs
 SET
 repairType = 'Handle Bars',
+doneDateDesired = '2019-12-29',
 customerId = 
 (SELECT customerId FROM Customers
 WHERE firstName = 'Chris' AND lastName = 'Brown' AND email = 'cbrown@gmail.com'),
