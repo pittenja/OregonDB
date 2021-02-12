@@ -21,15 +21,9 @@ INSERT INTO RepairJobs
 SET
 repairType = :repairType,
 doneDateDesired = :doneDateDesired,
-customerId = 
-(SELECT customerId FROM Customers
-WHERE firstName = :firstName AND lastName = :lastName AND email = :email),
-bikeId = 
-(SELECT bikeId from BikeModels
-WHERE make = :make AND model = :model AND year = :year),
-employeeId = 
-(SELECT employeeId FROM Employees
-WHERE employeeFirstName = :employeeFirstName AND employeeLastName = :employeeLastName);
+customerId = customerId,
+bikeId = :bikeId,
+employeeId = :employeeId;
 
 -- View RepairJobs by repairType
 -- Plaeholder value will be retreived from search bar
