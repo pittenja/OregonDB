@@ -110,7 +110,19 @@ app.get('/parts',function(req,res){
     res.render('parts');
 });
 // Other Queries
-
+// Parts Table Select
+app.get('/select-parts',function(req,res,next){
+    var context = {};
+    pool.query('SELECT * FROM Parts', function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      // send selected content back to client
+      res.send(context);
+    });
+});
 
 
 app.use(function(req,res){

@@ -16,34 +16,27 @@
 <form id="bike-insert-form">
   <fieldset>
   <legend>New Bike Submit Form</legend>
-  <label for="name">Name:</label>
-  <input type="text" name="bike-name" id="bike-name">
+  <label for="bike-make">Make:</label>
+  <input type="text" name="bike-make" id="bike-make">
+
+  <label for="bike-model">Model:</label>
+  <input type="text" name="bike-model" id="bike-model">
+
+  <label for="bike-year">Year(YYYY):</label>
+  <input type="text" name="bike-year" id="bike-year">
   <div>
-    <p>Select which parts this bike model is compatible with:</p>
-  </div>
-  <div>
-    <!--Temporary text to explain dynamic functionality-->
-    <p><mark>NOTE: the below parts will populate dynamically from Parts entity</mark></p>
+    <p>Select which parts this bike model is compatible with (Optional):</p>
   </div>
 
   <!--The below content will be created dynamically from DB Parts entity-->
-  <div>
-    <label for="lbs">23T Sprocket</label>
-    <input type="checkbox" name="compat-" id="compat-" value="false">
-  </div>
-  
-  <div>
-    <label for="lbs">Medium Chain</label>
-    <input type="checkbox" name="compat-" id="compat-" value="false">
-  </div>
-  <div>
-    <label for="lbs">XL Grips</label>
-    <input type="checkbox" name="compat-" id="compat-" value="false">
-  </div>
+  <ul id="parts-checklist">
+  </ul>
 
   <!--Submit Bike Insert-->
   <div>
-    <input type="submit" id="entry-submit">
+    <input type="submit" id="bike-entry-submit">
+  </div>
+  <div id="insert-error">
   </div>
   
   </fieldset>

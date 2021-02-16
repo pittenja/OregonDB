@@ -3,6 +3,80 @@
 // call function to perform initial table render if their is currently contents in the database table
 document.addEventListener('DOMContentLoaded', selectTableRender);
 
+// call function to populate insert form with parts inventory
+document.addEventListener('DOMContentLoaded', insertFormParts);
+
+
+
+
+function insertFormParts(){
+    var req = new XMLHttpRequest();
+    req.open("GET", "/select-parts", true);
+    req.addEventListener("load", function(){
+        if( req.status >= 200 && req.status < 400){
+            var response = JSON.parse(req.responseText);
+            var partsCheckList = document.getElementById("parts-checklist");
+            for(var i = 0; i < response.results.length; i++){
+                // make new list item
+                var newListItem = document.createElement("li");
+                partsCheckList.appendChild(newListItem);
+                // append child the name of the part
+                var partName = document.createElement("p");
+                partName.textContent = response.results[i].partName;
+                newListItem.appendChild(partName);
+                // append child the checkbox for the part with id of the part
+                var checkBox = document.createElement("input");
+                checkBox.setAttribute("type", "checkbox");
+                checkBox.setAttribute("value", "false");
+                checkBox.setAttribute("id", response.results[i].partId); 
+                partName.appendChild(checkBox);
+            }
+            
+            // add event listener for table insert form 
+            var insertBikeButton = document.getElementById('bike-entry-submit');
+            insertBikeButton.addEventListener('click', function(event){
+                // if submit button is clicked, perform insertion into bike table
+                insertBike();
+                event.preventDefault();
+            });
+
+        } else {
+            console.log("select request to fill update form failed: incorrect input");
+        }
+    })
+    req.send(null);
+}
+
+
+/* Function that inserts a new bike into BikeModels table as well as BikePartCompatibility table for selected compatible parts */
+function insertBike(){
+    // perform bike insert form input validation
+    var insError = document.getElementById('insert-error');
+    insError.textContent = "";
+    var newBikeMake = document.getElementById('bike-make');
+    if(newBikeMake.value == ""){
+        insError.textContent = "Bike Make cannot be Empty.";
+        return;
+    }
+    var newBikeModel = document.getElementById('bike-model');
+    if(newBikeModel.value == ""){
+        insError.textContent = "Bike Model cannot be Empty.";
+        return;
+    }
+    var newBikeYear = document.getElementById('bike-year');
+    if(newBikeYear.value == ""){
+        insError.textContent = "Bike Year cannot be Empty.";
+        return;
+    }
+    else if(newBikeYear.value < 1000 || newBikeYear.value > 9999 || isNaN(newBikeYear.value)){
+        insError.textContent = "Bike Year must be a four digit number.";
+        return;
+    }
+    // if insert successful, call selectTableRender to rerender bike table on page and refresh page
+    selectTableRender();
+}
+
+
 /* Function that requests table contents from Node server and renders the contents on the page */
 function selectTableRender(){
     var req = new XMLHttpRequest();
