@@ -1,7 +1,7 @@
---SQL FILE FOR DATABASE CREATION AND INSERTION OF SAMPLE DATA
+-- SQL FILE FOR DATABASE CREATION AND INSERTION OF SAMPLE DATA
 
---BikeModels Entity - JAY
---Table creation:
+-- BikeModels Entity - JAY
+-- Table creation:
 CREATE TABLE `BikeModels` (
 `bikeId` int(11) NOT NULL AUTO_INCREMENT,
 `make` varchar(255) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `BikeModels` (
 PRIMARY KEY (`bikeId`)
 ) ENGINE=InnoDB;
 
---Sample data:
+-- Sample data:
 INSERT INTO BikeModels
 SET
 make = 'Trek',
@@ -28,15 +28,15 @@ model = 'PBJ',
 year = '2016';
 
 
---Parts Entity - JAY
---Table creation:
+-- Parts Entity - JAY
+-- Table creation:
 CREATE TABLE `Parts` (
 `partId` int(11) NOT NULL AUTO_INCREMENT,
 `partName` varchar(255) NOT NULL,
 PRIMARY KEY (`partId`)
 ) ENGINE=InnoDB;
 
---Sample data:
+-- Sample data:
 INSERT INTO Parts
 SET
 partName = '23T Sprocket';
@@ -48,8 +48,8 @@ SET
 partName = 'XL Grips';
 
 
---BikePartCompatibility Entity - JAY
---Table creation:
+-- BikePartCompatibility Entity - JAY
+-- Table creation:
 CREATE TABLE `BikePartCompatibility` (
 `compatibilityId` int(11) NOT NULL AUTO_INCREMENT,
 `bikeId` int(11),
@@ -59,7 +59,7 @@ CONSTRAINT `BikePartCompatibility_ibfk_1` FOREIGN KEY (`bikeId`) REFERENCES `Bik
 CONSTRAINT `BikePartCompatibility_ibfk_2` FOREIGN KEY (`partId`) REFERENCES `Parts` (`partId`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
---Sample data:
+-- Sample data:
 INSERT INTO BikePartCompatibility
 SET
 bikeId = 
@@ -94,8 +94,8 @@ partId =
 WHERE partName = 'XL Grips');
 
 
---Customers Entity - RYAN
---Table creation:
+-- Customers Entity - RYAN
+-- Table creation:
 CREATE TABLE `Customers` (
 `customerId` int(11) NOT NULL AUTO_INCREMENT,
 `firstName` varchar(255) NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `Customers` (
 PRIMARY KEY (`customerId`)
 ) ENGINE=InnoDB;
 
---Sample data:
+-- Sample data:
 INSERT INTO Customers
 SET
 firstName = 'Bob',
@@ -121,8 +121,8 @@ firstName = 'Chris',
 lastName = 'Brown',
 email = 'cbrown@gmail.com';
 
---Employees Entity - RYAN
---Table creation:
+-- Employees Entity - RYAN
+-- Table creation:
 CREATE TABLE `Employees` (
 `employeeId` int(11) NOT NULL AUTO_INCREMENT,
 `employeeFirstName` varchar(255) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `Employees` (
 PRIMARY KEY (`employeeId`)
 ) ENGINE=InnoDB;
 
---Sample data:
+-- Sample data:
 INSERT INTO Employees
 SET
 employeeFirstName = 'Jill',
@@ -145,8 +145,8 @@ employeeFirstName = 'Nathan',
 employeeLastName = 'Norwood';
 
 
---RepairJobs Entity - RYAN
---Table creation:
+-- RepairJobs Entity - RYAN
+-- Table creation:
 CREATE TABLE `RepairJobs` (
 `repairId` int(11) NOT NULL AUTO_INCREMENT,
 `repairType` varchar(255) NOT NULL,
@@ -160,7 +160,7 @@ CONSTRAINT `RepairJobs_ibfk_2` FOREIGN KEY (`bikeId`) REFERENCES `BikeModels` (`
 CONSTRAINT `RepairJobs_ibfk_3` FOREIGN KEY (`employeeId`) REFERENCES `Employees` (`employeeId`)
 ) ENGINE=InnoDB;
 
---Sample data:
+-- Sample data:
 INSERT INTO RepairJobs
 SET
 repairType = 'Sprocket',

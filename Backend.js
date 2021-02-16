@@ -5,14 +5,14 @@ OregonDB
 var express = require('express');
 var mysql = require('mysql');
 
-/* // setup pool for database
+// setup pool for database
 var pool = mysql.createPool({
   host  : 'classmysql.engr.oregonstate.edu',
   // REPLACE with OSU ID and database name and password
-  user  : 'cs340_USERNAME',
+  user  : 'cs340_USER',
   password : '',
-  database : 'cs340_USERNAME'
-}); */
+  database : 'cs340_USER'
+});
 
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
@@ -64,6 +64,19 @@ app.get('/bikes',function(req,res){
     res.render('bikes');
 });
 // Other Queries
+// Bikes Table Select
+app.get('/select-bikes',function(req,res,next){
+    var context = {};
+    pool.query('SELECT * FROM BikeModels', function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      // send selected content back to client
+      res.send(context);
+    });
+});
 
 
 // PARTS

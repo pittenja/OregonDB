@@ -5,7 +5,7 @@ To Run app:
 
 1. install Node if not currently installed on your computer (this step is not required if running app on flip servers) : https://nodejs.org/en/
 
-2. on lines 12-14 of Backend.js, fill in proper information for your cs340 database and uncomment lines 8-15 - be sure to remove your database information and re comment this section when pushing to github
+2. on lines 12-14 of Backend.js, fill in proper information for your cs340 database. remove your user and password when pushing to github
 
 3. in terminal, navigate to directory with all app contents
 
