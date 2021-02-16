@@ -1,0 +1,143 @@
+<link rel="stylesheet" href="generalStyles.css">
+
+<!--Page Header with links to other pages-->
+  <h1>The Bike Shop</h1>
+  <a href="index">Home</a>
+  <a href="repairs">Repair Jobs</a>
+  <a href="customers">Customers</a>
+  <a href="parts">Parts Inventory</a>
+  <a href="bikes">Serviceable Bike Models</a>
+  <a href="employees">Employees</a>
+
+
+  <h2>Serviceable Bike Model Tracker</h2>
+  <!-- New Entry !-->
+  <h3>Insert a New Bike Model</h3>
+<form id="bike-insert-form">
+  <fieldset>
+  <legend>New Bike Submit Form</legend>
+  <label for="name">Name:</label>
+  <input type="text" name="bike-name" id="bike-name">
+  <div>
+    <p>Select which parts this bike model is compatible with:</p>
+  </div>
+  <div>
+    <!--Temporary text to explain dynamic functionality-->
+    <p><mark>NOTE: the below parts will populate dynamically from Parts entity</mark></p>
+  </div>
+
+  <!--The below content will be created dynamically from DB Parts entity-->
+  <div>
+    <label for="lbs">23T Sprocket</label>
+    <input type="checkbox" name="compat-" id="compat-" value="false">
+  </div>
+  
+  <div>
+    <label for="lbs">Medium Chain</label>
+    <input type="checkbox" name="compat-" id="compat-" value="false">
+  </div>
+  <div>
+    <label for="lbs">XL Grips</label>
+    <input type="checkbox" name="compat-" id="compat-" value="false">
+  </div>
+
+  <!--Submit Bike Insert-->
+  <div>
+    <input type="submit" id="entry-submit">
+  </div>
+  
+  </fieldset>
+</form>
+
+<!-- Parts Inventory Table !-->
+<h3>Serviceable Bike Models Table</h3>
+<h4>Click view on bike model to view compatible parts</h4>
+<table id="bike-table">
+  <thead>
+    <tr>
+      <th>
+        Make
+      </th>
+      <th>
+        Model
+      </th>
+      <th>
+        Year
+      </th>
+      <th>
+        View Compatible Parts
+      </th>
+    </tr>
+  </thead>
+
+
+  <!-- The below table content will populate dynamically from DB Parts entity-->
+  <tbody id="table-body">
+    <tr>
+      <td>
+        Trek
+      </th>
+      <td>
+        Ticket
+      </th>
+      <td>
+        2012
+      </th>
+      <td>
+        <input type="submit" id="view-select" value="View">
+      </td>
+    </tr>
+    <tr>
+        <td>
+          Specialized
+        </th>
+        <td>
+          P1
+        </th>
+        <td>
+          2010
+        </th>
+        <td>
+          <input type="submit" id="view-select" value="View">
+        </td>
+    </tr>
+    <tr>
+      <td>
+        Transition
+      </th>
+      <td>
+        PBJ
+      </th>
+      <td>
+        2016
+      </th>
+      <td>
+        <input type="submit" id="view-select" value="View">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!--Temporary text to explain dynamic functionality-->
+<div>
+  <mark>The below form will only appear when an above bike model table item is selected to view - will auto populate name from bike models as well as parts compatibility</mark>
+</div>
+
+
+<!--Update Form - this will appear when a bike model is selected to view !-->
+<form id="view-form" >
+  <fieldset>
+  <legend>Bike model part compatibility detail</legend>
+  <h4>2012 Trek Ticket</h4>
+  <!--The below content will be created dynamically from DB Parts entity-->
+  <ul>
+    <li>
+      23T Sprocket
+    </li>
+  </ul>
+
+  <input type="submit" id="update-submit" value="Close">
+  </fieldset>
+</form>
+
+<script src="bikesScript.js"></script>
