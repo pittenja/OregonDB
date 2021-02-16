@@ -76,22 +76,14 @@
   </tbody>
 </table>
 
-<!--Temporary text to explain dynamic functionality-->
-<div>
-  <mark>The below form will only appear when an above bike model table item is selected to view - will auto populate name from bike models as well as parts compatibility</mark>
-</div>
-
 
 <!--Update Form - this will appear when a bike model is selected to view !-->
 <form id="bike-view-form" >
   <fieldset>
   <legend>Bike model part compatibility detail</legend>
-  <h4>2012 Trek Ticket</h4>
+  <h4 id="bike-full-name"></h4>
   <!--The below content will be created dynamically from DB Parts entity-->
-  <ul>
-    <li>
-      23T Sprocket
-    </li>
+  <ul id ="parts-list">
   </ul>
 
   <input type="submit" id="bike-view-close" value="Close">

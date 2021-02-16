@@ -77,7 +77,32 @@ app.get('/select-bikes',function(req,res,next){
       res.send(context);
     });
 });
-
+// Select bike by id
+app.get('/select-bike-by-id',function(req,res,next){
+    var context = {};
+    pool.query('SELECT * FROM BikeModels WHERE bikeId = ?;', [req.query.bikeId], function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      // send selected content back to client
+      res.send(context);
+    });
+});
+// Select for compatible parts based on bike id
+app.get('/select-compatible-parts',function(req,res,next){
+    var context = {};
+    pool.query('SELECT partName FROM Parts WHERE partId IN (SELECT partId FROM BikePartCompatibility WHERE bikeId = ?);', [req.query.bikeId],function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      // send selected content back to client
+      res.send(context);
+    });
+});
 
 // PARTS
 // Initial Page Load
