@@ -48,18 +48,49 @@ app.get('/repairs',function(req,res){
 
 // CUSTOMERS
 // Initial Page Load
-app.get('/customers',function(req,res){
-    res.render('customers');
+app.get('/customers',(req, res) => {
+  let sql = "SELECT * FROM Customers";
+  let query = pool.query(sql, (err, results) => {
+    if(err) throw err;
+    res.render('customers',{
+      results: results
+
+         });
+  });
 });
 // Other Queries
+app.post('/insert-customers', function(req,res){
+  //console.log("THIS IS BODY " + req.body);
+  //console.log(req.body.firstName);
+  pool.query("INSERT into Customers (firstName, lastName, email) values ('"+ req.body.firstName + "','" + req.body.lastName + "','" +  req.body.email +"')", function(err, result){
+      console.log(err);
+      console.log(result);
+    })
 
+})
 
 // EMPLOYEES
 // Initial Page Load
-app.get('/employees',function(req,res){
-    res.render('employees');
+app.get('/employees',(req, res) => {
+  let sql = "SELECT * FROM Employees";
+  let query = pool.query(sql, (err, results) => {
+    if(err) throw err;
+    res.render('employees',{
+      results: results
+
+         });
+  });
 });
 // Other Queries
+app.post('/insert-employees', function(req,res){
+  //console.log("THIS IS BODY " + req.body);
+  //console.log(req.body.firstName);
+  pool.query("INSERT into Employees (employeeFirstName, employeeLastName) values ('"+ req.body.employeeFirstName + "','" + req.body.employeeLastName +"')", function(err, result){
+      console.log(err);
+      console.log(result);
+    })
+
+})
 
 
 // BIKES
