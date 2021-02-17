@@ -2,11 +2,11 @@
 
 // call function to perform initial table render if their is currently contents in the database table
 document.addEventListener('DOMContentLoaded', selectTableRender);
-
 // call function to populate insert form with parts inventory
 document.addEventListener('DOMContentLoaded', insertFormParts);
 
 
+/* Function to add all of the parts inventory to the insert bike form -adds event listener to insert form submit button */
 function insertFormParts(){
     var req = new XMLHttpRequest();
     req.open("GET", "/select-parts", true);
@@ -70,21 +70,22 @@ function insertBike(){
         insError.textContent = "Bike Year must be a four digit number.";
         return;
     }
-    // insert bike into bikeModels table
+    // insert bike into bikeModels table if input is valid
+    // build post body
     var bike = 'make=' + newBikeMake.value + "&model=" + newBikeModel.value + "&year=" + newBikeYear.value;
     var req = new XMLHttpRequest();
     req.open("POST", "/insert-bike", true);
     req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     req.addEventListener("load", function(){
-        
         if( req.status >= 200 && req.status < 400){
             var response = JSON.parse(req.responseText);
             var bikeId = response.results.insertId;
-            
+            // build post body for compatibility insert
             var compParts = "bikeId=" + bikeId;
             var partsChecked = document.getElementById('parts-checklist');
             var child;
             var count = 0;
+            // iterate through list of parts to see which ones were checked, add checked parts to req body
             for(var i = 0; i < partsChecked.children.length; i++) { 
                 child = partsChecked.children[i];
                 if (child.lastElementChild.lastElementChild.checked){
@@ -92,10 +93,11 @@ function insertBike(){
                     count += 1;
                 }
             }
+            // reset the insert form
             document.getElementById("bike-insert-form").reset();
-            // if insert successful, call selectTableRender to rerender bike table on page and refresh page
+            // call selectTableRender to re-render bike table on page and refresh page
             selectTableRender();
-            // perform compatibility insert if parts were selected
+            // perform compatibility insert only if parts were selected
             if(count > 0){
                 var req2 = new XMLHttpRequest();
                 req2.open("POST", "/bikeId-compatibility-insert", true);
@@ -154,7 +156,7 @@ function selectTableRender(){
                     newYear.textContent = response.results[i].year;
                     newRow.appendChild(newYear);
 
-                    // create td form with view button and hidden input of id
+                    // create td form with view button and input of id
                     var newFormCell = document.createElement("td");
                     newRow.appendChild(newFormCell);
                     var newForm = document.createElement("form");
@@ -217,6 +219,7 @@ function rowView(id){
         if( req.status >= 200 && req.status < 400){
             var response = JSON.parse(req.responseText);
             var nameString = "";
+            // add bike year, make, model as string to top of view form
             var bikeFullName = document.getElementById("bike-full-name");
             for(var i = 0; i < response.results.length; i++){
                 nameString += response.results[i].year + " " + response.results[i].make + " " + response.results[i].model;
@@ -230,6 +233,7 @@ function rowView(id){
                 if( req2.status >= 200 && req2.status < 400){
                     var response = JSON.parse(req2.responseText);
                     var partsList = document.getElementById("parts-list");
+                    // add compatible part as a list item in the view form
                     for(var i = 0; i < response.results.length; i++){
                         var newPart = document.createElement("li");
                         newPart.textContent = response.results[i].partName;
@@ -262,15 +266,5 @@ function disableButtons(){
     // deactivate table buttons 
     for( var j = 0; j < viewButtonDisable.length; j++){
         viewButtonDisable[j].setAttribute("disabled", "disabled");
-    }
-}
-
-
-/* Function to enable all view buttons on page */
-function enableButtons(){
-    var viewButtonDisable = document.getElementsByClassName('bike-view-select');
-    // reactivate table buttons 
-    for( var j = 0; j < viewButtonDisable.length; j++){
-        viewButtonDisable[j].removeAttribute("disabled");
     }
 }
