@@ -167,7 +167,7 @@ function buttonArray(){
                 // if delete button is clicked, get id for row and call function to delete row
                 var id = this.previousSibling.getAttribute("id");
                 event.preventDefault();
-                // rowDelete(id);
+                rowDelete(id);
             });
         }
         //if the update button for this row has not had a listener added for it
@@ -282,4 +282,23 @@ function insertPart(){
         }
     })
     req.send(part);
+}
+
+
+/* Function performs request to node server to delete row from Parts table with id */
+function rowDelete(id) {
+    // perform request from node server to delete row from database
+    var req = new XMLHttpRequest();
+        var reqContent = "?partId=" + id;
+        // perform asynchronous GET request to Node server
+        req.open("GET", "/delete-part" + reqContent, true);
+        req.addEventListener("load", function(){
+            if( req.status >= 200 && req.status < 400){
+                // call function to render updated table
+                selectTableRender();
+            } else {
+                console.log(" delete table row request failed: incorrect input");
+            }
+        })
+    req.send(null);
 }

@@ -255,6 +255,19 @@ app.post('/partId-compatibility-insert', function(req,res,next){
     res.send(context);
   });
 });
+// Delete part by id
+app.get('/delete-part',function(req,res,next){
+  var context = {};
+  pool.query('DELETE FROM Parts WHERE partId = ?;', [req.query.partId], function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    // send selected content back to client
+    res.send(context);
+  });
+});
 
 
 // pages to handle server errors
