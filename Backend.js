@@ -67,7 +67,7 @@ app.post('/insert-customers', function(req,res){
       console.log(result);
     })
 
-})
+});
 
 // EMPLOYEES
 // Initial Page Load
