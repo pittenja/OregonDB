@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', selectTableRender);
 document.addEventListener('DOMContentLoaded', checkFormBikes("insert"));
 
 
-/* Function to add all of the bike models to the insert part form -adds event listener to insert form submit button */
+/* Function to add all of the bike models to the insert part form or update part form as checklist 
+- adds event listener to insert form submit button if insert form is being updated*/
 function checkFormBikes(form, id){
     var req = new XMLHttpRequest();
     req.open("GET", "/select-bikes", true);
@@ -33,6 +34,7 @@ function checkFormBikes(form, id){
                 checkBox.setAttribute("id", response.results[i].bikeId); 
                 bikeFullName.appendChild(checkBox);
             }
+            // if the current form is the insert form, set event listener for submit button
             if(form != "update"){
                 // add event listener for table insert form 
                 var insertPartButton = document.getElementById('part-entry-submit');
@@ -41,7 +43,7 @@ function checkFormBikes(form, id){
                     insertPart();
                     event.preventDefault();
                 });
-                // checklist is in update form, call function to precheck boxes of currently compatible bikes
+            // checklist is in update form, call function to precheck boxes of currently compatible bikes
             } else {
                 populateBikeCheckBoxes(id);
             }
@@ -49,6 +51,35 @@ function checkFormBikes(form, id){
         } else {
             console.log("select request to fill update form failed: incorrect input");
         }
+    })
+    req.send(null);
+}
+
+
+/* Function checks boxes in bikes-update-checklist for all bikes that are compatible with part that has id*/
+function populateBikeCheckBoxes(id){
+    // populate checklist with currently compatible bikes
+    var req = new XMLHttpRequest();
+    var reqContent = "?partId=" + id;
+    req.open("GET", "/select-compatible-bikes" + reqContent, true);
+    req.addEventListener("load", function(){
+        if( req.status >= 200 && req.status < 400){
+            var response = JSON.parse(req.responseText);
+            var bikeList = document.getElementById("bikes-update-checklist");
+            // iterate through all compatible bikes
+            for(var i = 0; i < response.results.length; i++){
+                // find the compatible bike in the check list and check the box
+                for(var j = 0; j < bikeList.children.length; j++){
+                    var checkBox = bikeList.children[j].lastElementChild.lastElementChild;
+                    if (response.results[i].bikeId == checkBox.id){
+                        checkBox.checked = true;
+                    }
+                }
+            }
+        } else {
+            console.log("select request to fill update form failed: incorrect input");
+        }
+        
     })
     req.send(null);
 }
@@ -169,6 +200,7 @@ function disableButtons(){
 }
 
 
+/* Function builds part update form and updates part as well as respective compatibility relationships*/
 function rowUpdate(id){
     document.getElementById("part-update-form").style.display = "block";
     // build checklist of compatible bikes
@@ -179,6 +211,7 @@ function rowUpdate(id){
     req.open("GET", "/select-part-by-id" + reqContent, true);
     req.addEventListener("load", function(){
         if( req.status >= 200 && req.status < 400){
+            // populate part name text box in update form with current part name
             var partNameInput = document.getElementById("part-update-name");
             var response = JSON.parse(req.responseText);
             partNameInput.value = response.results[0].partName;
@@ -194,32 +227,6 @@ function rowUpdate(id){
         // insert all compatibilities into bikepartcompatibility
 }
 
-function populateBikeCheckBoxes(id){
-    // populate checklist with currently compatible bikes
-
-    var req2 = new XMLHttpRequest();
-    var req2Content = "?partId=" + id;
-    req2.open("GET", "/select-compatible-bikes" + req2Content, true);
-    req2.addEventListener("load", function(){
-        if( req2.status >= 200 && req2.status < 400){
-            var response = JSON.parse(req2.responseText);
-            var bikeList = document.getElementById("bikes-update-checklist");
-            // add compatible part as a list item in the view form
-            for(var i = 0; i < response.results.length; i++){
-                for(var j = 0; j < bikeList.children.length; j++){
-                    var checkBox = bikeList.children[j].lastElementChild.lastElementChild;
-                    if (response.results[i].bikeId == checkBox.id){
-                        checkBox.checked = true;
-                    }
-                }
-            }
-        } else {
-            console.log("select request to fill update form failed: incorrect input");
-        }
-        
-    })
-    req2.send(null);
-}
 
 /* Function that inserts a new bike into BikeModels table as well as BikePartCompatibility table for selected compatible parts */
 function insertPart(){

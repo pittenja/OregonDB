@@ -69,6 +69,7 @@ app.post('/insert-customers', function(req,res){
 
 });
 
+
 // EMPLOYEES
 // Initial Page Load
 app.get('/employees',(req, res) => {
