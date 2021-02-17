@@ -6,11 +6,7 @@ var express = require('express');
 var mysql = require('mysql');
 var app = express();
 var bodyParser = require('body-parser');
-
-// support parsing of application/json type post data
 app.use(bodyParser.json());
-
-//support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // setup pool for database
@@ -22,15 +18,15 @@ var pool = mysql.createPool({
   database : 'cs340_USER',
   multipleStatements : true
 });
-
+// setup handlebars
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-
-// include static files
-app.use(express.static('public'));
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
+
+// include static files
+app.use(express.static('public'));
 
 
 // INDEX
@@ -111,7 +107,6 @@ app.get('/select-compatible-parts',function(req,res,next){
       res.send(context);
     });
 });
-
 // insert bike
 app.post('/insert-bike',function(req,res,next){
     var context = {};
@@ -126,12 +121,12 @@ app.post('/insert-bike',function(req,res,next){
       res.send(context);
     });
 });
-
 // insert compatibility relationships for selected parts and bike id
 app.post('/bikeId-compatibility-insert', function(req,res,next){
     var context = {};
     var valArray = [];
     var queryText = "";
+    // add an insert query for every partId sent
     for(var part in req.body.partId){
         valArray.push(req.body.bikeId);
         valArray.push(req.body.partId[part]);
@@ -147,6 +142,7 @@ app.post('/bikeId-compatibility-insert', function(req,res,next){
       res.send(context);
     });
 });
+
 
 // PARTS
 // Initial Page Load
@@ -169,6 +165,7 @@ app.get('/select-parts',function(req,res,next){
 });
 
 
+// pages to handle server errors
 app.use(function(req,res){
     res.status(404);
     res.render('404');
@@ -181,6 +178,7 @@ app.use(function(err, req, res, next){
     res.render('500');
 });
 
+// port setup
 app.listen(app.get('port'), function(){
     console.log('Express started');
     console.log('if running locally, accessible at http://localhost:' + app.get('port'));
