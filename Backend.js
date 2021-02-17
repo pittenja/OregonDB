@@ -90,7 +90,7 @@ app.post('/insert-employees', function(req,res){
       console.log(result);
     })
 
-})
+});
 
 
 // BIKES
