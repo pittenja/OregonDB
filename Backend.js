@@ -40,10 +40,34 @@ app.get('/index',function(req,res){
 
 // REPAIRS
 // Initial Page Load
-app.get('/repairs',function(req,res){
-    res.render('repairs');
+app.get('/repairs',(req, res) => {
+  pool.query('SELECT customerId from Customers  ', [], function (err, results) {
+    pool.query('SELECT employeeId from Employees  ', [], function (err, result2) {
+      pool.query('SELECT bikeId from BikeModels   ', [], function (err, result3) {
+        pool.query('SELECT * from RepairJobs   ', [], function (err, result4) {
+        return res.render('repairs', {
+            results: results,
+            result2: result2,
+            result3: result3,
+            result4: result4,
+        });
+        console.log(result1);
+        console.log(result2);
+    });
 });
-// Other Queries
+});
+});
+});
+
+app.post('/insert-repairs', function(req,res){
+  //console.log("THIS IS BODY " + req.body);
+  //console.log(req.body.firstName);
+  pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId, employeeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId + "','" +  req.body.employeeId +"')", function(err, result){
+      console.log(err);
+      console.log(result);
+    })
+
+})
 
 
 // CUSTOMERS

@@ -13,76 +13,59 @@
 
 <h2>Manage Repair Jobs</h2>
 <!-- New Entry !-->
-<h3>Add Repair Job</h3>
-<form id="repair-insert-form">
-  <fieldset>
-  <label for="name">Repair Type:
+  <form id="repair-insert-form" >
+    <label for="name">Repair Type:
   <input type="text" name="repairType" id="repairType"></label>
   <br></br>
   <label for="date">Done Date Desired:
   <input type="date" name="doneDateDesired" id="doneDateDesired"></label>
   <br></br>
-  <label for="id">Customer ID:
-  <input type="number" name="customerId" id="customerId"></label>
+  <label for="customerId">Customer ID:</label>
+  <select name="customerId" id="customerId">
+      {{#each results}}
+        <option>{{this.customerId}}</option>
+    {{/each}}
+  </select>
   <br></br>
-  <label for="id">Bike ID:
-  <input type="number" name="bikeId" id="bikeId"></label>
+    <label for="bikeId">Bike ID:</label>
+  <select name="bikeId" id="bikeId">
+      {{#each result3}}
+        <option>{{this.bikeId}}</option>
+    {{/each}}
+  </select>
   <br></br>
-  <label for="id">Employee ID (Optional):
-  <input type="number" name="employeeId" id="employeeId"></label>
-
-  <br></br>
-
-  <!--Submit Repair Job Insert-->
-  <div>
-    <input type="submit" id="repairJob-submit">
-  </div>
-  </fieldset>
+    <label for="employeeId">Employee ID:</label>
+  <select name="employeeId" id="employeeId">
+      {{#each result2}}
+        <option>{{this.employeeId}}</option>
+    {{/each}}
+  </select>
+  <br><br>
+  <input type="submit" value="submit">
+  <button onClick=location.reload();> Reload Table</button>
 </form>
 <br></br>
 <!--Search Repair Jobs by repairType
 -->
-
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by Repair Type...">
-<p><mark>NOTE: The table below will be populated dynamically from the above insertions; for now the example is hardcoded</mark></p>
 
-<table id="myTable">
+<table id="myTable"> 
+<thead>
   <tr class="header">
-    <th>Repair Type</th>
-    <th>Done Date Desired</th>
-    <th>Customer ID</th>
-    <th>Bike ID</th>
-    <th>Employee ID</th>
-
+    {{#each result4.[0]}}
+      <th>{{@key}}</th>
+    {{/each}}
   </tr>
-  <tr>
-    <td>Sprocket Fix</td>
-    <td>12/01/2021</td>
-    <td>1</td>
-    <td>61</td>
-    <td>12</td>
-  </tr>
-  <tr>
-    <td>Pedal Fix</td>
-    <td>12/02/2021</td>
-    <td>2</td>
-    <td>65</td>
-    <td>10</td>
-  </tr>
-  <tr>
-    <td>Tire Fix</td>
-    <td>12/03/2021</td>
-    <td>3</td>
-    <td>59</td>
-    <td>8</td>
-  </tr>
-  <tr>
-    <td>Chain Fix</td>
-    <td>12/04/2021</td>
-    <td>4</td>
-    <td>63</td>
-    <td>7</td>
-  </tr>
+</thead>
+<tbody>
+  {{#each result4}}
+    <tr>
+    	{{#each this}}
+        <td>{{this}}</td>
+      {{/each}}
+    </tr>
+  {{/each}}
+</tbody>
 </table>
 
 <script src="repairsScript.js"></script>
