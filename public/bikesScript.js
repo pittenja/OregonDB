@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', selectTableRender);
 document.addEventListener('DOMContentLoaded', insertFormParts);
 
 
-
-
 function insertFormParts(){
     var req = new XMLHttpRequest();
     req.open("GET", "/select-parts", true);
@@ -27,7 +25,7 @@ function insertFormParts(){
                 // append child the checkbox for the part with id of the part
                 var checkBox = document.createElement("input");
                 checkBox.setAttribute("type", "checkbox");
-                checkBox.setAttribute("value", "false");
+                //checkBox.setAttribute("value", "false");
                 checkBox.setAttribute("id", response.results[i].partId); 
                 partName.appendChild(checkBox);
             }
@@ -72,8 +70,48 @@ function insertBike(){
         insError.textContent = "Bike Year must be a four digit number.";
         return;
     }
-    // if insert successful, call selectTableRender to rerender bike table on page and refresh page
-    selectTableRender();
+    // insert bike into bikeModels table
+    var bike = 'make=' + newBikeMake.value + "&model=" + newBikeModel.value + "&year=" + newBikeYear.value;
+    var req = new XMLHttpRequest();
+    req.open("POST", "/insert-bike", true);
+    req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    req.addEventListener("load", function(){
+        
+        if( req.status >= 200 && req.status < 400){
+            var response = JSON.parse(req.responseText);
+            var bikeId = response.results.insertId;
+            
+            var compParts = "bikeId=" + bikeId;
+            var partsChecked = document.getElementById('parts-checklist');
+            var child;
+            var count = 0;
+            for(var i = 0; i < partsChecked.children.length; i++) { 
+                child = partsChecked.children[i];
+                if (child.lastElementChild.lastElementChild.checked){
+                    compParts += '&partId=' + child.lastElementChild.lastElementChild.id;
+                    count += 1;
+                }
+            }
+            document.getElementById("bike-insert-form").reset();
+            // if insert successful, call selectTableRender to rerender bike table on page and refresh page
+            selectTableRender();
+            // perform compatibility insert if parts were selected
+            if(count > 0){
+                var req2 = new XMLHttpRequest();
+                req2.open("POST", "/bikeId-compatibility-insert", true);
+                req2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                req2.addEventListener("load", function(){
+                    if( req2.status < 200 || req2.status >= 400){
+                        console.log("select request to fill update form failed: incorrect input");
+                    }
+                })
+                req2.send(compParts);
+            } 
+        } else {
+            console.log("select request to fill update form failed: incorrect input");
+        }
+    })
+    req.send(bike);
 }
 
 

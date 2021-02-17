@@ -4,6 +4,14 @@ OregonDB
 
 var express = require('express');
 var mysql = require('mysql');
+var app = express();
+var bodyParser = require('body-parser');
+
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // setup pool for database
 var pool = mysql.createPool({
@@ -11,10 +19,10 @@ var pool = mysql.createPool({
   // REPLACE with OSU ID and database name and password
   user  : 'cs340_USER',
   password : '',
-  database : 'cs340_USER'
+  database : 'cs340_USER',
+  multipleStatements : true
 });
 
-var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
 // include static files
@@ -94,6 +102,42 @@ app.get('/select-bike-by-id',function(req,res,next){
 app.get('/select-compatible-parts',function(req,res,next){
     var context = {};
     pool.query('SELECT partName FROM Parts WHERE partId IN (SELECT partId FROM BikePartCompatibility WHERE bikeId = ?);', [req.query.bikeId],function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      // send selected content back to client
+      res.send(context);
+    });
+});
+
+// insert bike
+app.post('/insert-bike',function(req,res,next){
+    var context = {};
+    var valArray = [req.body.make, req.body.model, req.body.year];
+    pool.query('INSERT INTO BikeModels(`make`, `model`, `year`) VALUES (?, ?, ?);', valArray, function(err, rows, fields){
+      if(err){
+        next(err);
+        return;
+      }
+      context.results = rows;
+      // send selected content back to client
+      res.send(context);
+    });
+});
+
+// insert compatibility relationships for selected parts and bike id
+app.post('/bikeId-compatibility-insert', function(req,res,next){
+    var context = {};
+    var valArray = [];
+    var queryText = "";
+    for(var part in req.body.partId){
+        valArray.push(req.body.bikeId);
+        valArray.push(req.body.partId[part]);
+        queryText += 'INSERT INTO BikePartCompatibility SET bikeId = ?, partId = ?; ';
+    }
+    pool.query(queryText, valArray, function(err, rows, fields){
       if(err){
         next(err);
         return;
