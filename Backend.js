@@ -268,6 +268,32 @@ app.get('/delete-part',function(req,res,next){
     res.send(context);
   });
 });
+// delete all compatibility relationships with partId
+app.post('/partId-compatibility-delete', function(req,res,next){
+  var context = {};
+  pool.query('DELETE FROM BikePartCompatibility WHERE partId = ?;', req.body.partId, function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    // send selected content back to client
+    res.send(context);
+  });
+});
+// Update part by id
+app.post('/update-part',function(req,res,next){
+  var context = {};
+  pool.query('UPDATE Parts SET partName = ? WHERE partId = ?;', [req.body.partName, req.body.partId], function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    // send selected content back to client
+    res.send(context);
+  });
+});
 
 
 // pages to handle server errors

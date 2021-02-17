@@ -222,9 +222,91 @@ function rowUpdate(id){
     req.send(null);
 
     // set event listener for save button
-        // in event listener - delete all compatiblilies by id
+    var save = document.getElementById('update-submit');
+    save.addEventListener('click', function(event){
+        var partName = document.getElementById('part-update-name').value;
+        if(partName == ""){
+            event.preventDefault();
+            // perform bike insert form input validation
+            var upError = document.getElementById('update-error');
+            upError.textContent = "";
+            upError.textContent = "Part Name cannot be Empty.";
+        } else {
+            event.preventDefault();
+            updatePart(partName, id);
+        }
+    })
         // update part name in parts table from part name input
+        // in event listener - delete all compatiblilies by id
         // insert all compatibilities into bikepartcompatibility
+}
+
+
+function updatePart(partName, id){
+    var part = 'partId=' + id + '&partName=' + partName;
+    var req = new XMLHttpRequest();
+    req.open("POST", "/update-part", true);
+    req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    req.addEventListener("load", function(){
+        if( req.status >= 200 && req.status < 400){
+            partCompatibilityUpdate(id);
+        } else {
+            console.log("select request to fill update form failed: incorrect input");
+        }
+    })
+    req.send(part);
+
+}
+
+
+function partCompatibilityUpdate(id){
+    
+    var part = 'partId=' + id;
+    var req = new XMLHttpRequest();
+    req.open("POST", "/partId-compatibility-delete", true);
+    req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    req.addEventListener("load", function(){
+        if( req.status >= 200 && req.status < 400){
+            // build post body for compatibility insert
+            var compBikes = "partId=" + id;
+            var bikesChecked = document.getElementById('bikes-update-checklist');
+            var child;
+            var count = 0;
+            // iterate through list of bikes to see which ones were checked, add checked bikes to req body
+            for(var i = 0; i < bikesChecked.children.length; i++) { 
+                child = bikesChecked.children[i];
+                if (child.lastElementChild.lastElementChild.checked){
+                    compBikes += '&bikeId=' + child.lastElementChild.lastElementChild.id;
+                    count += 1;
+                }
+            }
+            // clear check list on form
+            child = bikesChecked.lastElementChild;
+            while (child) { 
+                bikesChecked.removeChild(child); 
+                child = bikesChecked.lastElementChild;
+            }
+            // perform compatibility insert only if bikes were selected
+            if(count > 0){
+                var req2 = new XMLHttpRequest();
+                req2.open("POST", "/partId-compatibility-insert", true);
+                req2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                req2.addEventListener("load", function(){
+                    if( req2.status < 200 || req2.status >= 400){
+                        console.log("select request to fill update form failed: incorrect input");
+                    } else {
+                        selectTableRender();
+                    }
+                })
+                req2.send(compBikes);
+            } else {
+                selectTableRender();
+            } 
+        } else {
+            console.log("select request to fill update form failed: incorrect input");
+        }
+    })
+    req.send(part);
 }
 
 
