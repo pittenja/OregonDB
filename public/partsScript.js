@@ -38,7 +38,7 @@ function checkFormBikes(form, id){
                 var insertPartButton = document.getElementById('part-entry-submit');
                 insertPartButton.addEventListener('click', function(event){
                     // if submit button is clicked, perform insertion into part table
-                    //insertPart();
+                    insertPart();
                     event.preventDefault();
                 });
                 // checklist is in update form, call function to precheck boxes of currently compatible bikes
@@ -219,4 +219,60 @@ function populateBikeCheckBoxes(id){
         
     })
     req2.send(null);
+}
+
+/* Function that inserts a new bike into BikeModels table as well as BikePartCompatibility table for selected compatible parts */
+function insertPart(){
+    // perform bike insert form input validation
+    var insError = document.getElementById('insert-error');
+    insError.textContent = "";
+    var newPartName = document.getElementById('part-name');
+    if(newPartName.value == ""){
+        insError.textContent = "Part Name cannot be Empty.";
+        return;
+    }
+    // insert part into Parts table if input is valid
+    // build post body
+    var part = 'partName=' + newPartName.value;
+    var req = new XMLHttpRequest();
+    req.open("POST", "/insert-part", true);
+    req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    req.addEventListener("load", function(){
+        if( req.status >= 200 && req.status < 400){
+            var response = JSON.parse(req.responseText);
+            var partId = response.results.insertId;
+            // build post body for compatibility insert
+            var compBikes = "partId=" + partId;
+            var bikesChecked = document.getElementById('bikes-checklist');
+            var child;
+            var count = 0;
+            // iterate through list of bikes to see which ones were checked, add checked bikes to req body
+            for(var i = 0; i < bikesChecked.children.length; i++) { 
+                child = bikesChecked.children[i];
+                if (child.lastElementChild.lastElementChild.checked){
+                    compBikes += '&bikeId=' + child.lastElementChild.lastElementChild.id;
+                    count += 1;
+                }
+            }
+            // reset the insert form
+            document.getElementById("part-insert-form").reset();
+            // call selectTableRender to re-render part table on page and refresh page
+            selectTableRender();
+            // perform compatibility insert only if bikes were selected
+            if(count > 0){
+                var req2 = new XMLHttpRequest();
+                req2.open("POST", "/partId-compatibility-insert", true);
+                req2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                req2.addEventListener("load", function(){
+                    if( req2.status < 200 || req2.status >= 400){
+                        console.log("select request to fill update form failed: incorrect input");
+                    }
+                })
+                req2.send(compBikes);
+            } 
+        } else {
+            console.log("select request to fill update form failed: incorrect input");
+        }
+    })
+    req.send(part);
 }

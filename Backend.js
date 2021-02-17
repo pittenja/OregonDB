@@ -220,6 +220,41 @@ app.get('/select-compatible-bikes',function(req,res,next){
     res.send(context);
   });
 });
+// insert part  - UPDATE THIS QUERY IN DMQ.sql
+app.post('/insert-part',function(req,res,next){
+  var context = {};
+  pool.query('INSERT INTO Parts(`partName`) VALUES (?);', req.body.partName, function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    // send selected content back to client
+    res.send(context);
+  });
+});
+// insert compatibility relationships for selected bikes and part id  - UPDATE THIS QUERY IN DMQ.sql
+app.post('/partId-compatibility-insert', function(req,res,next){
+  var context = {};
+  var valArray = [];
+  var queryText = "";
+  // add an insert query for every partId sent
+  for(var bike in req.body.bikeId){
+      valArray.push(req.body.partId);
+      valArray.push(req.body.bikeId[bike]);
+      queryText += 'INSERT INTO BikePartCompatibility SET partId = ?, bikeId = ?; ';
+  }
+  pool.query(queryText, valArray, function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    // send selected content back to client
+    res.send(context);
+  });
+});
+
 
 // pages to handle server errors
 app.use(function(req,res){
