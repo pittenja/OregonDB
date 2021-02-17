@@ -48,6 +48,8 @@ function insertFormParts(){
 
 /* Function that inserts a new bike into BikeModels table as well as BikePartCompatibility table for selected compatible parts */
 function insertBike(){
+    // disable the buttons while bike is being inserted
+    disableButtons();
     // perform bike insert form input validation
     var insError = document.getElementById('insert-error');
     insError.textContent = "";
@@ -93,6 +95,7 @@ function insertBike(){
                     count += 1;
                 }
             }
+            console.log(compParts);
             // reset the insert form
             document.getElementById("bike-insert-form").reset();
             // call selectTableRender to re-render bike table on page and refresh page
@@ -105,10 +108,15 @@ function insertBike(){
                 req2.addEventListener("load", function(){
                     if( req2.status < 200 || req2.status >= 400){
                         console.log("select request to fill update form failed: incorrect input");
-                    }
+                    } 
+                    // call selectTableRender to re-render part table on page and refresh page
+                    selectTableRender();
+
                 })
                 req2.send(compParts);
-            } 
+            } else {
+                selectTableRender();
+            }
         } else {
             console.log("select request to fill update form failed: incorrect input");
         }
@@ -183,6 +191,7 @@ function selectTableRender(){
         });
     req.send(null);
 }
+
 
 /* function adds event listeners to view buttons - and calls functions when these buttons are clicked */
 function buttonArray(){

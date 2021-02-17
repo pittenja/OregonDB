@@ -158,11 +158,17 @@ app.post('/bikeId-compatibility-insert', function(req,res,next){
     var context = {};
     var valArray = [];
     var queryText = "";
-    // add an insert query for every partId sent
-    for(var part in req.body.partId){
+    // add an insert query for every partId sent, iterate over partId if array, else build single query
+    if(Array.isArray(req.body.partId)){
+      for(var part in req.body.partId){
         valArray.push(req.body.bikeId);
         valArray.push(req.body.partId[part]);
         queryText += 'INSERT INTO BikePartCompatibility SET bikeId = ?, partId = ?; ';
+      }
+    } else {
+      valArray.push(req.body.bikeId);
+      valArray.push(req.body.partId);
+      queryText = 'INSERT INTO BikePartCompatibility SET bikeId = ?, partId = ?;';
     }
     pool.query(queryText, valArray, function(err, rows, fields){
       if(err){
@@ -239,11 +245,17 @@ app.post('/partId-compatibility-insert', function(req,res,next){
   var context = {};
   var valArray = [];
   var queryText = "";
-  // add an insert query for every partId sent
-  for(var bike in req.body.bikeId){
+  // add an insert query for every bikeId sent, iterate over bikeId if array, else build single query
+  if(Array.isArray(req.body.bikeId)){
+    for(var bike in req.body.bikeId){
       valArray.push(req.body.partId);
       valArray.push(req.body.bikeId[bike]);
       queryText += 'INSERT INTO BikePartCompatibility SET partId = ?, bikeId = ?; ';
+    }
+  } else {
+    valArray.push(req.body.partId);
+    valArray.push(req.body.bikeId);
+    queryText = 'INSERT INTO BikePartCompatibility SET partId = ?, bikeId = ?;';
   }
   pool.query(queryText, valArray, function(err, rows, fields){
     if(err){

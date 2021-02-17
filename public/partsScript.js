@@ -143,7 +143,7 @@ function selectTableRender(){
             } else {
                 console.log("table select request failed: incorrect input");
             }
-            // call button array to add event listeners to all view buttons
+            // call button array to add event listeners to all update and delete buttons
             buttonArray();
         });
     req.send(null);
@@ -179,14 +179,12 @@ function buttonArray(){
                 var id = this.previousSibling.previousSibling.getAttribute("id");
                 disableButtons();
                 rowUpdate(id);
-                
-                // reset the update form for next use
-                //document.getElementById("part-update-form").reset();
                 event.preventDefault();
             });
         }
     }
 }
+
 
 /* Function to disable all delete and update buttons on page */
 function disableButtons(){
@@ -236,9 +234,6 @@ function rowUpdate(id){
             updatePart(partName, id);
         }
     })
-        // update part name in parts table from part name input
-        // in event listener - delete all compatiblilies by id
-        // insert all compatibilities into bikepartcompatibility
 }
 
 
@@ -320,6 +315,8 @@ function insertPart(){
         insError.textContent = "Part Name cannot be Empty.";
         return;
     }
+    // disable the buttons while part is being inserted
+    disableButtons();
     // insert part into Parts table if input is valid
     // build post body
     var part = 'partName=' + newPartName.value;
@@ -356,9 +353,14 @@ function insertPart(){
                     if( req2.status < 200 || req2.status >= 400){
                         console.log("select request to fill update form failed: incorrect input");
                     }
+                    // call selectTableRender to re-render part table on page and refresh page
+                    selectTableRender();
                 })
                 req2.send(compBikes);
-            } 
+            } else {
+                // call selectTableRender to re-render part table on page and refresh page
+                selectTableRender();
+            }
         } else {
             console.log("select request to fill update form failed: incorrect input");
         }
