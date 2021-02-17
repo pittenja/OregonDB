@@ -21,29 +21,16 @@
   <div>
     <p>Select which bike models the part is compatible with:</p>
   </div>
-  <div>
-    <!--Temporary text to explain dynamic functionality-->
-    <p><mark>NOTE: the below bike models will populate dynamically from bikeModels entity</mark></p>
-  </div>
 
   <!--The below content will be created dynamically from DB BikeModels entity-->
-  <div>
-    <label for="lbs">2010 Specialized P1:</label>
-    <input type="checkbox" name="compat-" id="compat-" value="false">
-  </div>
-  
-  <div>
-    <label for="lbs">2012 Trek Ticket:</label>
-    <input type="checkbox" name="compat-" id="compat-" value="false">
-  </div>
-  <div>
-    <label for="lbs"> 2016 Transition PBJ:</label>
-    <input type="checkbox" name="compat-" id="compat-" value="false">
-  </div>
+    <ul id="bikes-checklist">
+  </ul>
 
   <!--Submit Part Insert-->
   <div>
-    <input type="submit" id="entry-submit">
+    <input type="submit" id="part-entry-submit">
+  </div>
+    <div id="insert-error">
   </div>
   
   </fieldset>
@@ -59,10 +46,7 @@
         Name
       </th>
       <th>
-        Update
-      </th>
-      <th>
-        Delete
+        Delete / Update
       </th>
     </tr>
   </thead>
@@ -70,71 +54,27 @@
 
   <!-- The below table content will populate dynamically from DB Parts entity-->
   <tbody id="part-table-body">
-    <tr>
-      <td>
-        23T Sprocket
-      </th>
-      <td>
-        <input type="submit" id="part-update-select" value="Update">
-      </th>
-      <td>
-        <input type="submit" id="part-delete-select" value="Delete">
-      </td>
-  </tr>
-    <tr>
-        <td>
-          Medium Chain
-        </th>
-        <td>
-          <input type="submit" id="part-update-select" value="Update">
-        </th>
-        <td>
-          <input type="submit" id="part-delete-select" value="Delete">
-        </td>
-    </tr>
-    <tr>
-      <td>
-        XL Grips
-      </th>
-      <td>
-        <input type="submit" id="part-update-select" value="Update">
-      </th>
-      <td>
-        <input type="submit" id="part-delete-select" value="Delete">
-      </td>
-    </tr>
   </tbody>
 </table>
 
-<!--Temporary text to explain dynamic functionality-->
-<div>
-  <mark>The below form will only appear when an above parts list table item is selected to update - will auto populate name from parts list as well as bike compatibility</mark>
-</div>
+
 
 
 <!--Update Form - this will appear when a part is selected to update !-->
-<form id="update-form" >
+<form id="part-update-form" >
   <fieldset>
+    <!--Temporary text to explain update not functional-->
+<div>
+  <mark>This form is not yet functional - does not perform update to database</mark>
+</div>
   <legend>Update Part Name or Compatibility</legend>
   <label for="update-name">Name:</label>
   <input type="text" name="part-update-name" id="part-update-name" value="part name">
 
 
   <!--The below content will be created dynamically from DB BikeModels entity-->
-  <div>
-    <label for="lbs">Specialized P1:</label>
-    <input type="checkbox" name="compat-" id="compat-" value="false">
-  </div>
-  
-  <div>
-    <label for="lbs">Trek Ticket:</label>
-    <input type="checkbox" name="compat-" id="compat-" value="true" checked>
-  </div>
-  <div>
-    <label for="lbs">Transition PBJ:</label>
-    <input type="checkbox" name="compat-" id="compat-" value="true" checked>
-  </div>
-
+    <ul id="bikes-update-checklist">
+  </ul>
 
   <input type="submit" id="update-submit" value="Save">
   </fieldset>

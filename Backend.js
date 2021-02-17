@@ -138,7 +138,7 @@ app.get('/select-compatible-parts',function(req,res,next){
       res.send(context);
     });
 });
-// insert bike
+// insert bike  - UPDATE THIS QUERY IN DMQ.sql
 app.post('/insert-bike',function(req,res,next){
     var context = {};
     var valArray = [req.body.make, req.body.model, req.body.year];
@@ -152,7 +152,7 @@ app.post('/insert-bike',function(req,res,next){
       res.send(context);
     });
 });
-// insert compatibility relationships for selected parts and bike id
+// insert compatibility relationships for selected parts and bike id  - UPDATE THIS QUERY IN DMQ.sql
 app.post('/bikeId-compatibility-insert', function(req,res,next){
     var context = {};
     var valArray = [];
@@ -194,7 +194,32 @@ app.get('/select-parts',function(req,res,next){
       res.send(context);
     });
 });
-
+// Select part by id
+app.get('/select-part-by-id',function(req,res,next){
+  var context = {};
+  pool.query('SELECT * FROM Parts WHERE partId = ?;', [req.query.partId], function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    // send selected content back to client
+    res.send(context);
+  });
+});
+// Select for compatible bikes based on part id - UPDATE THIS QUERY IN DMQ.sql
+app.get('/select-compatible-bikes',function(req,res,next){
+  var context = {};
+  pool.query('SELECT bikeId FROM BikePartCompatibility WHERE partId = ?;' , [req.query.partId],function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    context.results = rows;
+    // send selected content back to client
+    res.send(context);
+  });
+});
 
 // pages to handle server errors
 app.use(function(req,res){

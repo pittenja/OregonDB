@@ -68,6 +68,7 @@ model = :model,
 year = :year;
 ---For each selected compatible part in insert form, insert compatibility relationship into into bikePartCompatibility table using the below queries
 ---backend code will build a large query that contains the below query FOR EACH checked box of compatible part
+---- NEED TO CHANGE THIS QUERY
 INSERT INTO BikePartCompatibility
 SET
 bikeId = 
@@ -95,6 +96,7 @@ SET
 partName = :partName;
 ---For each selected compatible bike in insert form, insert compatibility relationship into into bikePartCompatibility table using the below queries
 ---backend code will build a large query that contains the below query FOR EACH checked box of compatible bike
+---- NEED TO CHANGE THIS QUERY
 INSERT INTO BikePartCompatibility
 SET
 bikeId = :bikeId,
@@ -111,6 +113,7 @@ WHERE partId = :partId;
 SELECT * FROM `BikeModels`
 ----Pre-check checkboxes of all bike models that are currently set to be compatible with the part being updated - save bikeId in html id for each checkbox
 ----Then perform the following select query to create list of bikes that are compatible with the selected part
+---- NEED TO CHANGE THIS QUERY
 SELECT * FROM BikeModels
 WHERE bikeId IN
 	(SELECT bikeId FROM BikePartCompatibility
