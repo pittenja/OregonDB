@@ -237,6 +237,8 @@ function rowUpdate(id){
 }
 
 
+/* function updates the part name in the parts table in the database and calls function to update 
+compatibility relationship */
 function updatePart(partName, id){
     var part = 'partId=' + id + '&partName=' + partName;
     var req = new XMLHttpRequest();
@@ -250,12 +252,12 @@ function updatePart(partName, id){
         }
     })
     req.send(part);
-
 }
 
 
+/* Function deletes old compatibility relationships for part with id and inserts new compatibilities with
+bike models based on checked boxes in update form */
 function partCompatibilityUpdate(id){
-    
     var part = 'partId=' + id;
     var req = new XMLHttpRequest();
     req.open("POST", "/partId-compatibility-delete", true);
