@@ -26,8 +26,10 @@ bikeId = :bikeId,
 employeeId = :employeeId;
 
 -- View RepairJobs by repairType
--- Plaeholder value will be retreived from search bar
-SELECT * FROM RepairJobs WHERE repairType LIKE 'Placeholder%';
+SELECT customerId from Customers;
+SELECT employeeId from Employees;
+SELECT bikeId from BikeModels;
+SELECT * from RepairJobs;
 
 --EMPLOYEES HTML PAGE - RYAN--
 -- Insert into Customers table 
