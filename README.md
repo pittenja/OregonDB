@@ -22,3 +22,9 @@ To Run app:
 9. once steps 4-7 have been done once, you do not need to do them again
 
 NOTE: when submitting the final project - run app in the "Forever" context so that app stays active for grading
+
+To run on flip server:
+
+1. run 'npm install forever' in terminal
+2. run the command './node_modules/forever/bin/forever start Backend.js 2727' to run the app on port 2727
+App is accessible at http://flipx.engr.oregonstate.edu:2727/ - replace 'x' after flip with flip server number
