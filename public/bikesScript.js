@@ -1,4 +1,5 @@
 /* OregonDB */
+// SOURCE NOTE: OSU cs340 and cs290 course materials were referenced in order to write the below server interaction code
 
 // call function to perform initial table render if their is currently contents in the database table
 document.addEventListener('DOMContentLoaded', selectTableRender);
