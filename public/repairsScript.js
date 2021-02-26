@@ -35,7 +35,13 @@ var item = {
   };
 
 //console.log(item);
-var response = postData('/insert-repairs', item).then(data =>{renderData(data);});
+if (repairType.value.length > 0 && doneDateDesired.value.toString().length > 0){
+
+  var response = postData('/insert-repairs', item).then(data =>{renderData(data);});
+}
+else{
+  window.alert("Repair Type and Done Date Desired must have a value!");
+}
 //console.log(response);
 //document.getElementById("").value = ""
 //document.getElementById("employeeLastName").value = ""
@@ -43,6 +49,7 @@ var response = postData('/insert-repairs', item).then(data =>{renderData(data);}
 
 const form = document.getElementById('repair-insert-form');
 form.addEventListener('submit', insert);
+
 
 async function postData(url = '', data = {}) {
   const response = await fetch(url, {
