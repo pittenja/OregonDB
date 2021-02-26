@@ -11,7 +11,13 @@ function insert(event) {
       };
   
     console.log(item);
-    var response = postData('/insert-customers', item).then(data =>{renderData(data);});
+    if (firstName.value.length > 0 && lastName.value.length > 0 && email.value.length > 0){
+      var response = postData('/insert-customers', item).then(data =>{renderData(data);});
+    }
+    else{
+      window.alert("First Name, Last Name, and Email must have values!");
+    }
+    //var response = postData('/insert-customers', item).then(data =>{renderData(data);});
     //console.log(response);
     document.getElementById("firstName").value = ""
     document.getElementById("lastName").value = ""
