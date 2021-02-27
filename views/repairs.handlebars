@@ -23,25 +23,31 @@
   <input type="date" name="doneDateDesired" id="doneDateDesired"></label>
   <br></br>
   <label for="customerId">Customer ID:</label>
+  <div class="select">
   <select name="customerId" id="customerId">
       {{#each results}}
         <option>{{this.customerId}}</option>
     {{/each}}
   </select>
+  </div>
   <br></br>
     <label for="bikeId">Bike ID:</label>
+  <div class="select">
   <select name="bikeId" id="bikeId">
       {{#each result3}}
         <option>{{this.bikeId}}</option>
     {{/each}}
   </select>
+  </div>
   <br></br>
     <label for="employeeId">Employee ID:</label>
+    <div class="select">
   <select name="employeeId" id="employeeId">
       {{#each result2}}
         <option>{{this.employeeId}}</option>
     {{/each}}
   </select>
+  </div>
   <br><br>
   <input type="submit" value="Submit" class="button">
  </form>

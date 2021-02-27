@@ -55,3 +55,81 @@ li a:hover {
   .button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   }
+
+  input[type=text] {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+  }
+  
+  input[type=date] {
+    box-sizing: border-box;
+   -webkit-appearance:none;
+   -moz-appearance:none;
+   -ms-appearance:none;
+   appearance:none;
+   outline:0;
+   box-shadow:none;
+   border: 2px solid #ccc;
+   border-radius: 4px;
+   background: white;
+   background-image: none;
+   flex: 1;
+   padding: 0 .5em;
+   color:#111;
+   font-size: 1em;
+   font-family: 'Open Sans', sans-serif;
+  } 
+
+  select {
+    box-sizing: border-box;
+   -webkit-appearance:none;
+   -moz-appearance:none;
+   -ms-appearance:none;
+   appearance:none;
+   outline:0;
+   box-shadow:none;
+   border: 2px solid #ccc;
+   border-radius: 4px;
+   background: white;
+   background-image: none;
+   flex: 1;
+   padding: 0 .5em;
+   color:#111;
+   font-size: 1em;
+   font-family: 'Open Sans', sans-serif;
+  
+}
+select::-ms-expand {
+   display: none;
+}
+.select {
+   position: relative;
+   display: flex;
+   width: 20em;
+   height: 3em;
+   line-height: 3;
+   background: white;
+   overflow: hidden;
+   border-radius: .25em;
+}
+.select::after {
+   content: '\25BC';
+   position: absolute;
+   top: 0;
+   right: 0;
+   padding: 0 1em;
+   background: white;
+   cursor:pointer;
+   pointer-events:none;
+   transition:.25s all ease;
+}
+.select:hover::after {
+   color: #111;
+}
