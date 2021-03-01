@@ -60,13 +60,9 @@ app.get('/repairs',(req, res) => {
 app.post('/insert-repairs', function(req,res){
   if(req.body.employeeId !== null){
     pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId, employeeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId + "','" +  req.body.employeeId +"')", function(err, result){
-      console.log(err);
-      console.log(result);
     })
   } else {
     pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId +"')", function(err, result){
-      console.log(err);
-      console.log(result);
     })
   }
 })
@@ -86,8 +82,6 @@ app.get('/customers',(req, res) => {
 });
 // Other Queries
 app.post('/insert-customers', function(req,res){
-  //console.log("THIS IS BODY " + req.body);
-  //console.log(req.body.firstName);
   pool.query("INSERT into Customers (firstName, lastName, email) values ('"+ req.body.firstName + "','" + req.body.lastName + "','" +  req.body.email +"')", function(err, result){
       console.log(err);
       console.log(result);
@@ -110,8 +104,6 @@ app.get('/employees',(req, res) => {
 });
 // Other Queries
 app.post('/insert-employees', function(req,res){
-  //console.log("THIS IS BODY " + req.body);
-  //console.log(req.body.firstName);
   pool.query("INSERT into Employees (employeeFirstName, employeeLastName) values ('"+ req.body.employeeFirstName + "','" + req.body.employeeLastName +"')", function(err, result){
       console.log(err);
       console.log(result);
