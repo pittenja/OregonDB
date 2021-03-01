@@ -26,13 +26,25 @@ var customerId = document.getElementById("customerId");
 var bikeId = document.getElementById("bikeId");
 var employeeId = document.getElementById("employeeId");
 
-var item = {
-  repairType: repairType.value,
-  doneDateDesired: doneDateDesired.value,
-  customerId: customerId.value,
-  bikeId: bikeId.value,
-  employeeId: employeeId.value
+// handle nullable entry for employeeid in repair job
+if(employeeId.value != "none"){
+  var item = {
+    repairType: repairType.value,
+    doneDateDesired: doneDateDesired.value,
+    customerId: customerId.value,
+    bikeId: bikeId.value,
+    employeeId: employeeId.value
   };
+} else {
+  var item = {
+    repairType: repairType.value,
+    doneDateDesired: doneDateDesired.value,
+    customerId: customerId.value,
+    bikeId: bikeId.value,
+    employeeId: null
+    };
+}
+
 
 //console.log(item);
 if (repairType.value.length > 0 && doneDateDesired.value.toString().length > 0){

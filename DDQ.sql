@@ -153,7 +153,7 @@ CREATE TABLE `RepairJobs` (
 `doneDateDesired` DATE NOT NULL,
 `customerId` int(11),
 `bikeId` int(11),
-`employeeId` int(11),
+`employeeId` int(11) DEFAULT NULL,
 PRIMARY KEY (`repairId`),
 CONSTRAINT `RepairJobs_ibfk_1` FOREIGN KEY (`customerId`) REFERENCES `Customers` (`CustomerId`),
 CONSTRAINT `RepairJobs_ibfk_2` FOREIGN KEY (`bikeId`) REFERENCES `BikeModels` (`bikeId`),

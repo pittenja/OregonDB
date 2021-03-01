@@ -51,8 +51,6 @@ app.get('/repairs',(req, res) => {
             result3: result3,
             result4: result4,
         });
-        console.log(result1);
-        console.log(result2);
     });
 });
 });
@@ -60,13 +58,17 @@ app.get('/repairs',(req, res) => {
 });
 
 app.post('/insert-repairs', function(req,res){
-  //console.log("THIS IS BODY " + req.body);
-  //console.log(req.body.firstName);
-  pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId, employeeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId + "','" +  req.body.employeeId +"')", function(err, result){
+  if(req.body.employeeId !== null){
+    pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId, employeeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId + "','" +  req.body.employeeId +"')", function(err, result){
       console.log(err);
       console.log(result);
     })
-
+  } else {
+    pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId +"')", function(err, result){
+      console.log(err);
+      console.log(result);
+    })
+  }
 })
 
 
