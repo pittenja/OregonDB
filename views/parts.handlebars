@@ -2,13 +2,14 @@
 
 <!--Page Header with links to other pages-->
   <h1>The Bike Shop</h1>
-  <a href="index">Home</a>
-  <a href="repairs">Repair Jobs</a>
-  <a href="customers">Customers</a>
-  <a href="parts">Parts Inventory</a>
-  <a href="bikes">Serviceable Bike Models</a>
-  <a href="employees">Employees</a>
-
+  <ul>
+  <li style=" float: left;"><a href="index">Home</a></li>
+   <li style=" float: left;"><a href="repairs">Repair Jobs</a></li>
+   <li style=" float: left;"><a href="customers">Customers</a></li>
+   <li style=" float: left;"><a href="parts">Manage Parts Inventory</a></li>
+   <li style=" float: left;"><a href="bikes">Serviceable Bike Models Tracker</a></li>
+   <li style=" float: left;"><a href="employees">Employees</a></li>
+  </ul>
 
   <h2>Manage Parts Inventory</h2>
   <!-- New Entry !-->
@@ -23,12 +24,12 @@
   </div>
 
   <!--The below content will be created dynamically from DB BikeModels entity-->
-    <ul id="bikes-checklist">
+    <ul id="bikes-checklist" style="background-color: white;">
   </ul>
 
   <!--Submit Part Insert-->
   <div>
-    <input type="submit" id="part-entry-submit">
+    <input type="submit" id="part-entry-submit" class="button">
   </div>
     <div id="insert-error">
   </div>
@@ -57,7 +58,7 @@
   <tbody id="part-table-body">
   </tbody>
 </table>
-
+<br></br>
 
 <!--Update Form - this will appear when a part is selected to update !-->
 <form id="part-update-form" >
@@ -68,11 +69,11 @@
 
 
   <!--The below content will be created dynamically from DB BikeModels entity-->
-    <ul id="bikes-update-checklist">
+    <ul id="bikes-update-checklist" style="background-color: white;">
   </ul>
-
-  <input type="submit" id="update-submit" value="Save">
-  <input type="submit" id="update-cancel" value="Cancel">
+  <br></br>
+  <input type="submit" id="update-submit" value="Save" class="button">
+  <input type="submit" id="update-cancel" value="Cancel" class="button">
   <div id='update-error'>
   </div>
   </fieldset>

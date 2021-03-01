@@ -2,12 +2,14 @@
 
 <!--Page Header with links to other pages-->
   <h1>The Bike Shop</h1>
-  <a href="index">Home</a>
-  <a href="repairs">Repair Jobs</a>
-  <a href="customers">Customers</a>
-  <a href="parts">Parts Inventory</a>
-  <a href="bikes">Serviceable Bike Models</a>
-  <a href="employees">Employees</a>
+    <ul>
+  <li style=" float: left;"><a href="index">Home</a></li>
+   <li style=" float: left;"><a href="repairs">Repair Jobs</a></li>
+   <li style=" float: left;"><a href="customers">Customers</a></li>
+   <li style=" float: left;"><a href="parts">Manage Parts Inventory</a></li>
+   <li style=" float: left;"><a href="bikes">Serviceable Bike Models Tracker</a></li>
+   <li style=" float: left;"><a href="employees">Employees</a></li>
+  </ul>
 
 
   <h2>Serviceable Bike Model Tracker</h2>
@@ -29,12 +31,12 @@
   </div>
 
   <!--The below content will be created dynamically from DB Parts entity-->
-  <ul id="parts-checklist">
+  <ul id="parts-checklist" style="background-color: white;">
   </ul>
 
   <!--Submit Bike Insert-->
   <div>
-    <input type="submit" id="bike-entry-submit">
+    <input type="submit" id="bike-entry-submit" class="button">
   </div>
   <div id="insert-error">
   </div>
@@ -77,7 +79,7 @@
   <legend>Bike model part compatibility detail</legend>
   <h4 id="bike-full-name"></h4>
   <!--The below content will be created dynamically from DB Parts entity-->
-  <ul id ="parts-list">
+  <ul id ="parts-list" style="background-color: white;">
   </ul>
 
   <input type="submit" id="bike-view-close" value="Close">

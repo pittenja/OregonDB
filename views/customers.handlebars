@@ -2,12 +2,14 @@
  
   <!--Page Header with links to other pages-->
   <h1>The Bike Shop</h1>
-  <a href="index">Home</a>
-  <a href="repairs">Repair Jobs</a>
-  <a href="customers">Customers</a>
-  <a href="parts">Parts Inventory</a>
-  <a href="bikes">Serviceable Bike Models</a>
-  <a href="employees">Employees</a>
+  <ul>
+    <li style=" float: left;"><a href="index">Home</a></li>
+    <li style=" float: left;"><a href="repairs">Repair Jobs</a></li>
+    <li style=" float: left;"><a href="customers">Customers</a></li>
+    <li style=" float: left;"><a href="parts">Manage Parts Inventory</a></li>
+    <li style=" float: left;"><a href="bikes">Serviceable Bike Models</a></li>
+    <li style=" float: left;"><a href="employees">Employees</a></li>
+    </ul>
 
   <h2>Manage Customers</h2>
 
@@ -15,6 +17,7 @@
   <h3>Add Customer</h3>
 <form id="customer-insert-form">
   <fieldset>
+  <legend>New Customer Submit Form</legend>
   <label for="name">First Name:
   <input type="text" name="firstName" id="firstName"></label>
   <br></br>
@@ -28,13 +31,13 @@
 
   <!--Submit Customer Insert-->
   <div>
-    <input type="submit" id="customer-submit">
+    <input type="submit" id="customer-submit" class="button">
   </div>
   </fieldset>
 </form>
 
 <h3>View All Customers</h3>
-<button onClick=location.reload();> Reload Table</button>
+<button class="button" onClick=location.reload();> Reload Table</button>
 <br></br>
 <table>
 <thead>
