@@ -157,7 +157,7 @@ app.get('/select-compatible-parts',function(req,res,next){
       res.send(context);
     });
 });
-// insert bike  - UPDATE THIS QUERY IN DMQ.sql
+// insert bike
 app.post('/insert-bike',function(req,res,next){
     var context = {};
     var valArray = [req.body.make, req.body.model, req.body.year];
@@ -171,7 +171,7 @@ app.post('/insert-bike',function(req,res,next){
       res.send(context);
     });
 });
-// insert compatibility relationships for selected parts and bike id  - UPDATE THIS QUERY IN DMQ.sql
+// insert compatibility relationships for selected parts and bike id 
 app.post('/bikeId-compatibility-insert', function(req,res,next){
     var context = {};
     var valArray = [];
@@ -232,7 +232,7 @@ app.get('/select-part-by-id',function(req,res,next){
     res.send(context);
   });
 });
-// Select for compatible bikes based on part id - UPDATE THIS QUERY IN DMQ.sql
+// Select for compatible bikes based on part id
 app.get('/select-compatible-bikes',function(req,res,next){
   var context = {};
   pool.query('SELECT bikeId FROM BikePartCompatibility WHERE partId = ?;' , [req.query.partId],function(err, rows, fields){
@@ -245,7 +245,7 @@ app.get('/select-compatible-bikes',function(req,res,next){
     res.send(context);
   });
 });
-// insert part  - UPDATE THIS QUERY IN DMQ.sql
+// insert part
 app.post('/insert-part',function(req,res,next){
   var context = {};
   pool.query('INSERT INTO Parts(`partName`) VALUES (?);', req.body.partName, function(err, rows, fields){
@@ -258,7 +258,7 @@ app.post('/insert-part',function(req,res,next){
     res.send(context);
   });
 });
-// insert compatibility relationships for selected bikes and part id  - UPDATE THIS QUERY IN DMQ.sql
+// insert compatibility relationships for selected bikes and part id
 app.post('/partId-compatibility-insert', function(req,res,next){
   var context = {};
   var valArray = [];
