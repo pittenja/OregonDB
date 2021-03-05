@@ -54,8 +54,29 @@
  <br></br>
 <!--Search Repair Jobs by repairType
 -->
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by Repair Type...">
+<!---stackoverflow.com-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../JS/jquery.typeahead.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(){
+    $('input.typeahead').typeahead({
+    name: 'typeahead',
+    remote: 'http://localhost:2727/search?key=%QUERY',
+    limit: 10
+    });
+    });
+</script>
 
+<form method="POST" action="/search"> 
+<label>Search by Repair Type...</label>
+<input class="typeahead tt-query" spellcheck="false" autocomplete="off" name="typeahead" type="text" />
+<br></br> 
+ <input type="submit" value="Search" class="button">
+ <br></br>
+</form>
+<!---stackoverflow END-->
+<!---<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by Repair Type...">
+-->
 <table id="myTable"> 
 <thead>
   <tr class="header">
