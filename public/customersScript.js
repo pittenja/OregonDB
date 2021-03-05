@@ -13,6 +13,8 @@ function insert(event) {
     console.log(item);
     if (firstName.value.length > 0 && lastName.value.length > 0 && email.value.length > 0){
       var response = postData('/insert-customers', item).then(data =>{renderData(data);});
+      window.alert("Submission Successful!");
+      location.reload()
     }
     else{
       window.alert("First Name, Last Name, and Email must have values!");
