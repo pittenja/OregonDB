@@ -9,7 +9,15 @@ function insert(event) {
       };
   
     //console.log(item);
-    var response = postData('/insert-employees', item).then(data =>{renderData(data);});
+    if (employeeFirstName.value.length > 0 && employeeLastName.value.length > 0){
+      var response = postData('/insert-employees', item).then(data =>{renderData(data);});
+      window.alert("Submission Successful!");
+      location.reload()
+    }
+    else{
+      window.alert("First Name, and Last Name must have values!");
+
+    }
     //console.log(response);
     document.getElementById("employeeFirstName").value = ""
     document.getElementById("employeeLastName").value = ""

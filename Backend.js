@@ -67,6 +67,22 @@ app.post('/insert-repairs', function(req,res){
   }
 })
 
+// stackoverflow refernce    
+app.post('/search',function(req,res){
+  var str = {
+      stringPart:req.body.typeahead
+  }
+
+  pool.query('SELECT * FROM RepairJobs WHERE repairType LIKE "%'+str.stringPart+'%"',function(err, rows, fields) {
+      if (err) throw err;
+      var data=[];
+      for(i=0;i<rows.length;i++)
+      {
+          data.push(rows[i]);
+      }
+      res.send(JSON.stringify(data));
+  });
+});
 
 // CUSTOMERS
 // Initial Page Load
