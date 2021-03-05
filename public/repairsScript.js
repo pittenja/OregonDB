@@ -38,6 +38,8 @@ var item = {
 if (repairType.value.length > 0 && doneDateDesired.value.toString().length > 0){
 
   var response = postData('/insert-repairs', item).then(data =>{renderData(data);});
+  window.alert("Submission Successful!");
+  location.reload()
 }
 else{
   window.alert("Repair Type and Done Date Desired must have a value!");
