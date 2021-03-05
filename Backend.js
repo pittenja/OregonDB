@@ -51,8 +51,6 @@ app.get('/repairs',(req, res) => {
             result3: result3,
             result4: result4,
         });
-        console.log(result1);
-        console.log(result2);
     });
 });
 });
@@ -60,13 +58,13 @@ app.get('/repairs',(req, res) => {
 });
 
 app.post('/insert-repairs', function(req,res){
-  //console.log("THIS IS BODY " + req.body);
-  //console.log(req.body.firstName);
-  pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId, employeeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId + "','" +  req.body.employeeId +"')", function(err, result){
-      console.log(err);
-      console.log(result);
+  if(req.body.employeeId !== null){
+    pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId, employeeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId + "','" +  req.body.employeeId +"')", function(err, result){
     })
-
+  } else {
+    pool.query("INSERT into RepairJobs (repairType, doneDateDesired, customerId, bikeId) values ('"+ req.body.repairType + "','" + req.body.doneDateDesired + "','" + req.body.customerId + "','" + req.body.bikeId +"')", function(err, result){
+    })
+  }
 })
 
 
@@ -84,8 +82,6 @@ app.get('/customers',(req, res) => {
 });
 // Other Queries
 app.post('/insert-customers', function(req,res){
-  //console.log("THIS IS BODY " + req.body);
-  //console.log(req.body.firstName);
   pool.query("INSERT into Customers (firstName, lastName, email) values ('"+ req.body.firstName + "','" + req.body.lastName + "','" +  req.body.email +"')", function(err, result){
       console.log(err);
       console.log(result);
@@ -108,8 +104,6 @@ app.get('/employees',(req, res) => {
 });
 // Other Queries
 app.post('/insert-employees', function(req,res){
-  //console.log("THIS IS BODY " + req.body);
-  //console.log(req.body.firstName);
   pool.query("INSERT into Employees (employeeFirstName, employeeLastName) values ('"+ req.body.employeeFirstName + "','" + req.body.employeeLastName +"')", function(err, result){
       console.log(err);
       console.log(result);
@@ -163,7 +157,7 @@ app.get('/select-compatible-parts',function(req,res,next){
       res.send(context);
     });
 });
-// insert bike  - UPDATE THIS QUERY IN DMQ.sql
+// insert bike
 app.post('/insert-bike',function(req,res,next){
     var context = {};
     var valArray = [req.body.make, req.body.model, req.body.year];
@@ -177,7 +171,7 @@ app.post('/insert-bike',function(req,res,next){
       res.send(context);
     });
 });
-// insert compatibility relationships for selected parts and bike id  - UPDATE THIS QUERY IN DMQ.sql
+// insert compatibility relationships for selected parts and bike id 
 app.post('/bikeId-compatibility-insert', function(req,res,next){
     var context = {};
     var valArray = [];
@@ -238,7 +232,7 @@ app.get('/select-part-by-id',function(req,res,next){
     res.send(context);
   });
 });
-// Select for compatible bikes based on part id - UPDATE THIS QUERY IN DMQ.sql
+// Select for compatible bikes based on part id
 app.get('/select-compatible-bikes',function(req,res,next){
   var context = {};
   pool.query('SELECT bikeId FROM BikePartCompatibility WHERE partId = ?;' , [req.query.partId],function(err, rows, fields){
@@ -251,7 +245,7 @@ app.get('/select-compatible-bikes',function(req,res,next){
     res.send(context);
   });
 });
-// insert part  - UPDATE THIS QUERY IN DMQ.sql
+// insert part
 app.post('/insert-part',function(req,res,next){
   var context = {};
   pool.query('INSERT INTO Parts(`partName`) VALUES (?);', req.body.partName, function(err, rows, fields){
@@ -264,7 +258,7 @@ app.post('/insert-part',function(req,res,next){
     res.send(context);
   });
 });
-// insert compatibility relationships for selected bikes and part id  - UPDATE THIS QUERY IN DMQ.sql
+// insert compatibility relationships for selected bikes and part id
 app.post('/partId-compatibility-insert', function(req,res,next){
   var context = {};
   var valArray = [];
