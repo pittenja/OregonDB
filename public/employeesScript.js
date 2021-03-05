@@ -8,7 +8,7 @@ function insert(event) {
       employeeLastName: employeeLastName.value
       };
   
-    //console.log(item);
+
     if (employeeFirstName.value.length > 0 && employeeLastName.value.length > 0){
       var response = postData('/insert-employees', item).then(data =>{renderData(data);});
       window.alert("Submission Successful!");
@@ -18,7 +18,7 @@ function insert(event) {
       window.alert("First Name, and Last Name must have values!");
 
     }
-    //console.log(response);
+
     document.getElementById("employeeFirstName").value = ""
     document.getElementById("employeeLastName").value = ""
   }

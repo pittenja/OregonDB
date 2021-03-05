@@ -53,10 +53,9 @@
   <input type="submit" value="Submit" class="button">
  </form>
  <br></br>
-<!--Search Repair Jobs by repairType
--->
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by Repair Type...">
-<table id="myTable"> 
+<!--Search Repair Jobs by repairType-->
+<input type="text" id="searchInput" onkeyup="dynamicSearch()" placeholder="Search by Repair Type...">
+<table id="repairTable"> 
 <thead>
   <tr class="header">
     {{#each result4.[0]}}

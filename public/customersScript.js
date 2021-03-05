@@ -19,8 +19,7 @@ function insert(event) {
     else{
       window.alert("First Name, Last Name, and Email must have values!");
     }
-    //var response = postData('/insert-customers', item).then(data =>{renderData(data);});
-    //console.log(response);
+
     document.getElementById("firstName").value = ""
     document.getElementById("lastName").value = ""
     document.getElementById("email").value = ""

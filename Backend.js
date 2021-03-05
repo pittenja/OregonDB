@@ -92,8 +92,7 @@ app.get('/customers',(req, res) => {
     if(err) throw err;
     res.render('customers',{
       results: results
-
-         });
+    });
   });
 });
 // Other Queries
@@ -102,7 +101,6 @@ app.post('/insert-customers', function(req,res){
       console.log(err);
       console.log(result);
     })
-
 });
 
 
@@ -121,10 +119,7 @@ app.get('/employees',(req, res) => {
 // Other Queries
 app.post('/insert-employees', function(req,res){
   pool.query("INSERT into Employees (employeeFirstName, employeeLastName) values ('"+ req.body.employeeFirstName + "','" + req.body.employeeLastName +"')", function(err, result){
-      console.log(err);
-      console.log(result);
     })
-
 });
 
 
